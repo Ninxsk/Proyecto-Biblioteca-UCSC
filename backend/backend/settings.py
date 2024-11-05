@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'Taller'
+
+    ,
 ]
 
 MIDDLEWARE = [
@@ -74,7 +78,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+        'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # Base de datos por defecto para autenticación de usuarios
+    },
+    'mariadb': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'minerva',
         'USER': 'nino',
@@ -83,6 +91,7 @@ DATABASES = {
         'PORT': '3306',      
     }
 }
+
 
 
 

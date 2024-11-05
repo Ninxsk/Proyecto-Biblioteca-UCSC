@@ -28,12 +28,11 @@ Reportes y Estadísticas: Generar estadísticas detalladas y exportarlas en dive
 - **Docker**: 20.10 o superior
 - **Docker Compose**: 1.27 o superior
 
-⚠️ **Nota**: Se recomienda utilizar estas versiones para asegurar la estabilidad y compatibilidad del proyecto.
 
 ---
 
 ## Estructura del Proyecto
-
+```plaintext
 PROYECTO-BIBLIOTECA-UCSC/
 ├── backend/
 │   ├── backend/

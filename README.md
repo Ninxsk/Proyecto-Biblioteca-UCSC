@@ -6,10 +6,10 @@ Desarrollo de un módulo de software personalizado para la Dirección de Bibliot
 ## Características Principales
 La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, siendo crucial un sistema que centralice y gestione procesos que actualmente son manuales y propensos a errores. Este proyecto aborda la necesidad de un registro eficiente y preciso de asistencia, facilitando la emisión de certificados y la generación de estadísticas clave para análisis y reportes institucionalescterísticas Principales
 
-Gestión de Capacitaciones: CRUD de capacitaciones con permisos asignados según roles específicos.
-Formulario de Asistencia: Generación de formularios accesibles públicamente, habilitados según el estado del taller.
-Generación de certificados: Emisión y descarga directa de certificados en PDF para los asistentes registrados.
-Reportes y Estadísticas: Generar estadísticas detalladas y exportarlas en diversos formatos .
+- **Gestión de Capacitaciones**: CRUD de capacitaciones con permisos asignados según roles específicos.
+- **Formulario de Asistencia**: Generación de formularios accesibles públicamente, habilitados según el estado del taller.
+- **Generación de certificados**: Emisión y descarga directa de certificados en PDF para los asistentes registrados.
+- **Reportes y Estadísticas**: Generar estadísticas detalladas y exportarlas en diversos formatos .
 
 ---
 

@@ -9,14 +9,14 @@ class Taller(models.Model):
     fecha = models.DateField()
     inicio = models.TimeField()
     fin = models.TimeField()
-    modalidad = models.BooleanField()  # O CharField si usas un texto como "Presencial"
+    modalidad = models.BooleanField()  
     id_sol_taller = models.IntegerField(null=True, blank=True)
     id_jornada = models.IntegerField(null=True, blank=True)
     lugar = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
-        db_table = 'taller'  # Especifica el nombre exacto de la tabla en MariaDB
-        managed = False  # Evita que Django intente gestionar esta tabla
+        db_table = 'taller' 
+        managed = False  
 
     def __str__(self):
         return self.nombre

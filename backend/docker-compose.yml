@@ -7,14 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: django_web
     volumes:
-      - .:/app  # Monta tu código fuente en el contenedor
+      - .:/app 
     ports:
-      - "8000:8000"  # Puerto para acceder a tu aplicación Django
-    environment:
-      DB_HOST: localhost
-      DB_PORT: 3306                  
-      DB_NAME: minerva    
-      DB_USER: nino            
+      - "8000:8000"  
+    env_file:
+      - .env  # Carga las variables de entorno desde el archivo .env
     networks:
       - django_network
     command: >

@@ -6,6 +6,3 @@ class TallerViewSet(viewsets.ModelViewSet):
     queryset = Taller.objects.using('mariadb').all()  
     serializer_class = TallerSerializer
     
-    
-    
-   

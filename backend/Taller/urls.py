@@ -1,10 +1,8 @@
-from django.urls import path, include
+
 from rest_framework.routers import DefaultRouter
 from .views import TallerViewSet
 
-router = DefaultRouter()
-router.register(r'talleres', TallerViewSet)
+router_taller=DefaultRouter()
+router_taller.register(prefix='talleres', viewset=TallerViewSet)
 
-urlpatterns = [
-    path('', include(router.urls)),
-]
+

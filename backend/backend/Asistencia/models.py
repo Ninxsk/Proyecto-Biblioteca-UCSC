@@ -7,11 +7,11 @@ class Asistente (models.Model):
     nombre=models.CharField(max_length=100)
     
     class Meta:
-        db_table= 'Asistente'
+        db_table= 'asistente'
         managed= False
     
     def __str__(self):
-        return self.id
+        return self.nombre
     
  
 class AsistenteExterno(models.Model):
@@ -24,10 +24,10 @@ class AsistenteExterno(models.Model):
         managed= False
     
     def __str__(self):
-        return self.id
+        return self.nombre
     
 class ListaAsistencia(models.Model):
-    id = models.AutoField(primary_key=True)
+    id_asiste= models.AutoField(primary_key=True)
     carrera =  models.ForeignKey(Carrera,on_delete=models.DO_NOTHING,db_column="ua")
     asistente= models.ForeignKey(Asistente,on_delete=models.DO_NOTHING,db_column="id_asistente")
     taller = models.ForeignKey(Taller,on_delete=models.DO_NOTHING,db_column="id_taller")
@@ -40,7 +40,7 @@ class ListaAsistencia(models.Model):
         managed= False
     
     def __str__(self):
-        return self.id
+        return self.taller
     
 class ListaAsistenciaExterno(models.Model):
     id = models.AutoField(primary_key=True)
@@ -57,5 +57,5 @@ class ListaAsistenciaExterno(models.Model):
         managed= False
     
     def __str__(self):
-        return self.id
+        return self.taller
     

@@ -3,3 +3,4 @@ backend/backend/.env
 /env
 backend/backend/backend/__pycache__
 backend/backend/Taller/__pycache__
+backend/backend/Taller/migration/__pycache__

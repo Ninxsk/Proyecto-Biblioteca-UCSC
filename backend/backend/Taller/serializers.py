@@ -8,13 +8,13 @@ class TallerCreateSerializer(serializers.ModelSerializer):
         fields = ['nombre', 'relator', 'fecha', 'inicio', 'fin', 'modalidad', 'solicitud', 'jornada', 'lugar']
 
     def validate(self, data):
-        
         if data['inicio'] >= data['fin']:
             raise serializers.ValidationError("La hora de inicio debe ser anterior a la hora de término.")
         
-       
-        if Taller.objects.filter(solicitud=data['solicitud']).exists():
-            raise serializers.ValidationError("Ya existe un taller asociado a esta solicitud.")
+        solicitud = data.get('solicitud')
+        if solicitud is not None:
+            if Taller.objects.filter(solicitud=solicitud).exists():
+                raise serializers.ValidationError("Ya existe un taller asociado a esta solicitud.")
 
         return data
     

@@ -35,7 +35,7 @@ class TallerListSerializer(serializers.ModelSerializer):
 
 #Dtalle de cada taller
 class TallerDetailSerializer(serializers.ModelSerializer):
-    solicitud = serializers.PrimaryKeyRelatedField(read_only=True)
+    solicitud = serializers.PrimaryKeyRelatedField() 
     carrera = serializers.SerializerMethodField()
     facultad = serializers.SerializerMethodField()
     jornada = serializers.SerializerMethodField()

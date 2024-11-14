@@ -15,6 +15,6 @@ class TallerViewSet(viewsets.ModelViewSet):
             return TallerListSerializer
         elif self.action == 'retrieve':
             return TallerDetailSerializer
-        elif self.action in ['update', 'partial_update']:
+        elif self.action in ['update']:
             return TallerUpdateSerializer
         return TallerCreateSerializer

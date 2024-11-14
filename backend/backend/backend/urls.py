@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from Taller.urls import router_taller
+from Asistencia.urls import router_lista
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router_taller.urls)),
+    path('lista/',include(router_lista.urls))
 ]

@@ -1,6 +1,6 @@
 # created by virtualenv automatically
-backend/backend/.env
+/backend/.env
 /env
-backend/backend/backend/__pycache__
-backend/backend/Taller/__pycache__
-backend/backend/Taller/migration/__pycache__
+/backend/backend/__pycache__
+/backend/Taller/__pycache__
+/backend/Taller/migration/__pycache__

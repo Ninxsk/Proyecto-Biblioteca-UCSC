@@ -14,6 +14,5 @@ class AsisteSerializaer(serializers.ModelSerializer):
     class Meta:
         model = Asistente
         fields =['id','rut','nombre']
-        
 
 

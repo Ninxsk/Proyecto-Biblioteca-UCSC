@@ -1,5 +1,5 @@
-from rest_framework.routers import DefaultRouter
-from .views import ListaAsistenciaViewset , AsistenteViewset
-router_lista=DefaultRouter()
-router_lista.register(prefix='ListaAsistencia',viewset=ListaAsistenciaViewset),
-router_lista.register(prefix='Asistente',viewset=AsistenteViewset)
+from django.urls import path
+from .views import ListaAsistenciaAPIView
+
+urlpatterns = [
+    path('<int:taller_id>/lista-asistencia/', ListaAsistenciaAPIView.as_view())]

@@ -4,4 +4,6 @@
 /backend/backend/__pycache__
 /backend/Taller/__pycache__
 /backend/Taller/migration/__pycache__
-/backend/Asitencia/__pycache__
+/backend/Asitencia/__pycache_
+/backend/Asitencia/migration/__pycache___
+/backend/error.log

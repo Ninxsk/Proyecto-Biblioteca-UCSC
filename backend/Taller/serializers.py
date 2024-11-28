@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Taller
+from .models import Taller , Jornada
 
 #Creacion taller
 class TallerCreateSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class TallerListSerializer(serializers.ModelSerializer):
 
 
 
-#Dtalle de cada taller
+#Detalle de cada taller
 class TallerDetailSerializer(serializers.ModelSerializer):
     solicitud = serializers.PrimaryKeyRelatedField(read_only=True) 
     carrera = serializers.SerializerMethodField()
@@ -93,3 +93,6 @@ class TallerUpdateSerializer(serializers.ModelSerializer):
         model=Taller
         fields= ['fecha','inicio','fin','modalidad','relator']
         
+        
+
+

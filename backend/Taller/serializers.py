@@ -92,7 +92,28 @@ class TallerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Taller
         fields= ['fecha','inicio','fin','modalidad','relator']
+
+
+
+class JornadaCreateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model= Jornada
+        fields= ['nombre', 'inicio', 'termino']
         
+    def validate(self, data):
+        if data ['inicio'] >= data ['termino']:
+            raise serializers.ValidationError("La fecha de inicio debe ser anterior a la fecha de termino")
+
+
+
+class JornadaListSerializer (serializers.ModelSerializer):       
+    class Meta:
+        model= Jornada
+        fields= ['id_jornada','nombre', 'inicio', 'termino']
+        
+
+
         
 
 

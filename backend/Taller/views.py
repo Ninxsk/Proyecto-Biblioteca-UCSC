@@ -72,11 +72,16 @@ class TallerViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
-
-
 #Prueba para enrutar asistencia 
 class AsistenciaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset=ListaAsistencia.objects.all()
     serializer_class=ListaAsistenciaSerializer
 
-
+class JornadaViewSet( viewsets.ModelViewSet):
+    queryset= Jornada.objects.all()
+    
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return JornadaListSerializer
+        return JornadaCreateSerializer
+    

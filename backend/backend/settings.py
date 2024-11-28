@@ -14,6 +14,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os 
 
+
+
 #cargar las variables de entorno
 load_dotenv()
 
@@ -31,7 +33,7 @@ DEBUG = os.getenv('DEBUG')
 
 
 ALLOWED_HOSTS = ['10.1.0.74']
-ALLOWED_HOSTS = ['127.0.0.1']#cnfigurar para ngnix
+#cnfigurar para ngnix
  
 
 # Application definition
@@ -152,4 +154,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

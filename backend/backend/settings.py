@@ -33,6 +33,7 @@ DEBUG = os.getenv('DEBUG')
 
 
 ALLOWED_HOSTS = ['10.1.0.74']
+ALLOWED_HOSTS= ['127.0.0.1']
 #cnfigurar para ngnix
  
 

@@ -2,14 +2,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Taller , Jornada
-from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer, JornadaCreateSerializer , JornadaListSerializer
-from Asistencia.models import ListaAsistencia, ListaAsistenciaExterno
+from .models import Taller
+from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer
 from Asistencia.serializers import ListaAsistenciaSerializer,CrearAsistenteInternoSerializer,CrearAsistenciaExternaSerializer
-
+from Asistencia.models import ListaAsistencia , ListaAsistenciaExterno,Asistente,AsistenteExterno
 
 
 #Vista de talleres, listado de asistencia y creacion de asistentes (internos y externos)
+
 class TallerViewSet(viewsets.ModelViewSet):
     queryset = Taller.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
@@ -71,7 +71,122 @@ class TallerViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+    @action(detail=True, methods=['delete'], url_path='eliminar-asistente')
+    def eliminar_asistente(self, request, pk=None):
+        """
+        Eliminar un asistente 
+        """
+        tipo = request.query_params.get('tipo')  # interno o externo
+        identificador = request.query_params.get('identificador')  # rut o num_documento
 
+        if not tipo or not identificador:
+            return Response(
+                {"error": "Se debe especificar el tipo ('interno' o 'externo') y el identificador (rut o num_documento)."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        taller = self.get_object()
+
+        if tipo == 'interno':
+            try:
+                asistente = Asistente.objects.get(rut=identificador)
+                asistencia = ListaAsistencia.objects.get(asistente=asistente, taller=taller)
+                asistencia.delete()
+                return Response({"message": "Asistente interno eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
+            except Asistente.DoesNotExist:
+                return Response(
+                    {"error": "No se encontró un asistente interno con el rut especificado."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            except ListaAsistencia.DoesNotExist:
+                return Response(
+                    {"error": "No se encontró la asistencia del interno especificado en este taller."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+        elif tipo == 'externo':
+            try:
+                asistente_externo = AsistenteExterno.objects.get(num_documento=identificador)
+                asistencia_externa = ListaAsistenciaExterno.objects.get(asistente_externo=asistente_externo, taller=taller)
+                asistencia_externa.delete()
+                return Response({"message": "Asistente externo eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
+            except AsistenteExterno.DoesNotExist:
+                return Response(
+                    {"error": "No se encontró un asistente externo con el número de documento especificado."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            except ListaAsistenciaExterno.DoesNotExist:
+                return Response(
+                    {"error": "No se encontró la asistencia del externo especificado en este taller."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+        return Response({"error": "Tipo de asistente no válido. Debe ser 'interno' o 'externo'."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    @action(detail=True, methods=['put'], url_path='editar-asistente')
+    def editar_asistente(self, request, pk=None):
+        """
+        Editar la información de un asistente 
+        """
+        tipo = request.data.get('tipo')  
+        identificador = request.data.get('identificador') 
+        nuevos_datos = request.data.get('datos') 
+
+        if not tipo or not identificador or not nuevos_datos:
+            return Response(
+                {"error": "Se debe especificar el tipo ('interno' o 'externo'), el identificador (rut o num_documento) y los datos a actualizar."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if tipo == 'interno':
+            try:
+                
+                asistente = Asistente.objects.get(rut=identificador)
+
+                
+                asistente.nombre = nuevos_datos.get('nombre', asistente.nombre)
+                asistente.rut = nuevos_datos.get('rut', asistente.rut)
+                asistente.save()
+
+                
+                ListaAsistencia.objects.filter(asistente=asistente).update(
+                    correo=nuevos_datos.get('correo', None)
+                )
+
+                return Response({"message": "Asistente interno actualizado exitosamente."}, status=status.HTTP_200_OK)
+
+            except Asistente.DoesNotExist:
+                return Response(
+                    {"error": "No se encontró un asistente interno con el rut especificado."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+        elif tipo == 'externo':
+            try:
+                
+                asistente_externo = AsistenteExterno.objects.get(num_documento=identificador)
+
+                asistente_externo.nombre = nuevos_datos.get('nombre', asistente_externo.nombre)
+                asistente_externo.num_documento = nuevos_datos.get('num_documento', asistente_externo.num_documento)
+                asistente_externo.save()
+
+                
+                ListaAsistenciaExterno.objects.filter(asistente_externo=asistente_externo).update(
+                    correo=nuevos_datos.get('correo', None),
+                    pais=nuevos_datos.get('pais', None),
+                    institucion=nuevos_datos.get('institucion', None)
+                )
+
+                return Response({"message": "Asistente externo actualizado exitosamente."}, status=status.HTTP_200_OK)
+
+            except AsistenteExterno.DoesNotExist:
+                return Response(
+                    {"error": "No se encontró un asistente externo con el número de documento especificado."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+        return Response({"error": "Tipo de asistente no válido. Debe ser 'interno' o 'externo'."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 #Prueba para enrutar asistencia 

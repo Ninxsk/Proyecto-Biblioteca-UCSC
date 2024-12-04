@@ -27,13 +27,12 @@ class AsistenteInternoDetalleSerializer(serializers.ModelSerializer):
 class AsistenteExternoDetalleSerializer(serializers.ModelSerializer):
     nombre = serializers.CharField(source='asistente_externo.nombre', required=False)
     num_documento = serializers.CharField(source='asistente_externo.num_documento', required=False)
-    taller = serializers.CharField(source= 'taller.nombre',required=False)
+   
 
     class Meta:
         model = ListaAsistenciaExterno
         fields = [
             'id',
-            'taller'
             'nombre',
             'num_documento',
             'correo',

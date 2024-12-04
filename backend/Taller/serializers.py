@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Taller
+from .models import Taller , Jornada, SolicitudTalleres
 
 #Creacion taller
 class TallerCreateSerializer(serializers.ModelSerializer):
@@ -82,7 +82,6 @@ class TallerDetailSerializer(serializers.ModelSerializer):
             representation.pop('carrera')
         if representation.get('facultad') is None:
             representation.pop('facultad')
-            
         return representation
 
 
@@ -92,4 +91,29 @@ class TallerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Taller
         fields= ['fecha','inicio','fin','modalidad','relator']
+    def validate(self, data):
+        if data.get('inicio') and data.get('fin'):
+            if data['inicio'] >= data['fin']:
+                raise serializers.ValidationError("La hora de inicio debe ser anterior a la hora de término.")
         
+        
+from rest_framework import serializers
+from .models import Taller, SolicitudTalleres, Jornada
+
+class SolicitudTalleresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SolicitudTalleres
+        fields = ['rut', 'ua', 'email', 'presencial', 'f_taller', 'f_solicitud', 'comentarios']
+
+class JornadaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Jornada
+        fields = ['nombre', 'inicio', 'termino']
+
+class TallerFullDetalleSerializer(serializers.ModelSerializer):
+    solicitud = SolicitudTalleresSerializer(read_only=True)
+    jornada = JornadaSerializer(read_only=True)
+
+    class Meta:
+        model = Taller
+        fields = ['id', 'nombre', 'relator', 'fecha', 'inicio', 'fin', 'modalidad', 'lugar', 'solicitud', 'jornada']

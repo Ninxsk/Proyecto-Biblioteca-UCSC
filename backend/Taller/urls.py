@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import TallerViewSet,AsistenciaViewSet,JornadaViewSet
+from .views import TallerViewSet,AsistenciaViewSet
 from django.urls import path, include
 
 router_taller=DefaultRouter()

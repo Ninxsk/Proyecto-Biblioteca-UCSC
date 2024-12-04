@@ -8,6 +8,7 @@ from Asistencia.serializers import ListaAsistenciaSerializer,CrearAsistenteInter
 from Asistencia.models import ListaAsistencia , ListaAsistenciaExterno,Asistente,AsistenteExterno
 
 
+
 #Vista de talleres, listado de asistencia y creacion de asistentes (internos y externos)
 
 class TallerViewSet(viewsets.ModelViewSet):
@@ -76,8 +77,8 @@ class TallerViewSet(viewsets.ModelViewSet):
         """
         Eliminar un asistente 
         """
-        tipo = request.query_params.get('tipo')  # interno o externo
-        identificador = request.query_params.get('identificador')  # rut o num_documento
+        tipo = request.query_params.get('tipo')  
+        identificador = request.query_params.get('identificador') 
 
         if not tipo or not identificador:
             return Response(
@@ -92,34 +93,26 @@ class TallerViewSet(viewsets.ModelViewSet):
                 asistente = Asistente.objects.get(rut=identificador)
                 asistencia = ListaAsistencia.objects.get(asistente=asistente, taller=taller)
                 asistencia.delete()
-                return Response({"message": "Asistente interno eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
+                return Response({"message": "Asistente eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
             except Asistente.DoesNotExist:
                 return Response(
-                    {"error": "No se encontró un asistente interno con el rut especificado."},
+                    {"error": "No se encontró un asistente con el rut especificado."},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            except ListaAsistencia.DoesNotExist:
-                return Response(
-                    {"error": "No se encontró la asistencia del interno especificado en este taller."},
-                    status=status.HTTP_404_NOT_FOUND
-                )
+
 
         elif tipo == 'externo':
             try:
                 asistente_externo = AsistenteExterno.objects.get(num_documento=identificador)
                 asistencia_externa = ListaAsistenciaExterno.objects.get(asistente_externo=asistente_externo, taller=taller)
                 asistencia_externa.delete()
-                return Response({"message": "Asistente externo eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
+                return Response({"message": "Asistente eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
             except AsistenteExterno.DoesNotExist:
                 return Response(
-                    {"error": "No se encontró un asistente externo con el número de documento especificado."},
+                    {"error": "No se encontró un asistente con el número de documento especificado."},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            except ListaAsistenciaExterno.DoesNotExist:
-                return Response(
-                    {"error": "No se encontró la asistencia del externo especificado en este taller."},
-                    status=status.HTTP_404_NOT_FOUND
-                )
+
 
         return Response({"error": "Tipo de asistente no válido. Debe ser 'interno' o 'externo'."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -154,11 +147,11 @@ class TallerViewSet(viewsets.ModelViewSet):
                     correo=nuevos_datos.get('correo', None)
                 )
 
-                return Response({"message": "Asistente interno actualizado exitosamente."}, status=status.HTTP_200_OK)
+                return Response({"message": "Asistente actualizado exitosamente."}, status=status.HTTP_200_OK)
 
             except Asistente.DoesNotExist:
                 return Response(
-                    {"error": "No se encontró un asistente interno con el rut especificado."},
+                    {"error": "No se encontró un asistente con el rut especificado."},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
@@ -178,11 +171,11 @@ class TallerViewSet(viewsets.ModelViewSet):
                     institucion=nuevos_datos.get('institucion', None)
                 )
 
-                return Response({"message": "Asistente externo actualizado exitosamente."}, status=status.HTTP_200_OK)
+                return Response({"message": "Asistente actualizado exitosamente."}, status=status.HTTP_200_OK)
 
             except AsistenteExterno.DoesNotExist:
                 return Response(
-                    {"error": "No se encontró un asistente externo con el número de documento especificado."},
+                    {"error": "No se encontró un asistente con el número de documento especificado."},
                     status=status.HTTP_404_NOT_FOUND
                 )
 

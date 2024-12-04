@@ -6,6 +6,7 @@ router_taller=DefaultRouter()
 router_taller.register(prefix='talleres', viewset=TallerViewSet)
 router_taller.register(prefix='asistencia',viewset=AsistenciaViewSet)
 
+
 urlpatterns = [
     path('', include(router_taller.urls)),
 ]

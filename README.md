@@ -18,7 +18,7 @@ La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, s
 # Comenzando
 Instrucciones para obtener una copia del proyecto en funcionamiento en una máquina local.
 
-Requisitos Previos
+### Requisitos Previos
 Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas:
 
 ### 1. Git: Para clonar el repositorio

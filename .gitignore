@@ -1,7 +1,45 @@
 # created by virtualenv automatically
+
+# Ignorar dependencias de Python (backend)
+
+
+
 /backend/.env
 /env
 /backend/backend/__pycache__
 /backend/Taller/__pycache__
 /backend/Taller/migration/__pycache__
 /backend/Asitencia/__pycache__
+/backend/error.log
+backend/*.pyc
+
+# Ignorar dependencias de Node.js (frontend)
+frontend/node_modules/
+
+
+
+# Archivos relacionados con Yarn y NPM (frontend)
+frontend/.pnp
+frontend/.pnp.js
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Ignorar cobertura de pruebas
+frontend/coverage/
+backend/coverage/
+
+# Ignorar archivos de compilación y producción
+frontend/build/
+
+# Ignorar archivos específicos de desarrollo y entorno
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Archivos del sistema
+.DS_Store
+
+# Otros logs
+npm-debug.log*

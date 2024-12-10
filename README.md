@@ -188,31 +188,36 @@ Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utili
    ALLOWED_HOSTS=
 
    ```
-Aqui un ejemplo:
+   Aqui un ejemplo:
 
-SECRET_KEY=mi_clave_secreta_super_segura_12345 // # Clave secreta de Django, usada para firmar datos sensibles.
-DEBUG=True // # Define si el proyecto está en modo depuración (True para desarrollo, False para producción).
+    SECRET_KEY=mi_clave_secreta_super_segura_12345 // # Clave secreta de Django, usada para firmar datos sensibles.
+   
+    DEBUG=True // # Define si el proyecto está en modo depuración (True para desarrollo, False para producción).
 
-**Configuración de la Base de Datos**
+    **Configuración de la Base de Datos**
 
-DB_NAME=biblioteca // # Nombre de la base de datos.
-DB_USER=biblioteca_user // # Usuario con permisos para la base de datos.
-DB_PASSWORD=contraseña_segura // # Contraseña del usuario de la base de datos.
-DB_HOST=localhost // # Host donde se encuentra la base de datos (puede ser localhost o el nombre de un contenedor Docker).
-DB_PORT=3306 // # Puerto para conectarse a la base de datos (3306 es el puerto predeterminado de MariaDB/MySQL).
+    DB_NAME=biblioteca // # Nombre de la base de datos.
+   
+    DB_USER=biblioteca_user // # Usuario con permisos para la base de datos.
+   
+    DB_PASSWORD=contraseña_segura // # Contraseña del usuario de la base de datos.
+   
+    DB_HOST=localhost // # Host donde se encuentra la base de datos (puede ser localhost o el nombre de un contenedor Docker).
+   
+    DB_PORT=3306 // # Puerto para conectarse a la base de datos (3306 es el puerto predeterminado de MariaDB/MySQL).
 
-**Hosts permitidos para acceder a la aplicación.**
+    **Hosts permitidos para acceder a la aplicación.**
 
-ALLOWED_HOSTS=localhost,127.0.0.1 // # En producción, usa el dominio de tu sitio web (por ejemplo, biblioteca.talleres.cl).
+    ALLOWED_HOSTS=localhost,127.0.0.1 // # En producción, usa el dominio de tu sitio web (por ejemplo, biblioteca.talleres.cl).
 
 
-3. **Construir y ejecutar los contenedores**  
+4. **Construir y ejecutar los contenedores**  
    Construye y levanta todos los servicios necesarios :
    ```bash
    docker-compose up --build -d
    ```
 
-4. **Verificar los servicios**  
+5. **Verificar los servicios**  
    Asegúrate de que los servicios estén corriendo:
    ```bash
    docker-compose ps

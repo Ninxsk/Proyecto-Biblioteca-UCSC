@@ -192,6 +192,7 @@ Aqui un ejemplo:
 
 SECRET_KEY=mi_clave_secreta_super_segura_12345 // # Clave secreta de Django, usada para firmar datos sensibles.
 DEBUG=True // # Define si el proyecto está en modo depuración (True para desarrollo, False para producción).
+
 **Configuración de la Base de Datos**
 
 DB_NAME=biblioteca // # Nombre de la base de datos.

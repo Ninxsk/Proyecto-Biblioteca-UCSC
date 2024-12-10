@@ -13,8 +13,6 @@ La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, s
 
 ---
 
-
-
 # Comenzando
 Instrucciones para obtener una copia del proyecto en funcionamiento en una máquina local.
 
@@ -92,33 +90,66 @@ Si Docker Compose está instalado, verás un número de versión (por ejemplo, `
   sudo apt update
   sudo apt install docker-compose
   ```
-
-
+---  
 ## Entorno de Desarrollo y Pruebas
-Este proyecto fue dise~nado en un entorno espec´ıfico, por lo que se
-recomienda utilizar las mismas versiones de software.
 
-## Configuracion del Entorno
-Pasos detallados para replicar el entorno de desarrollo y pruebas.
+Este proyecto fue diseñado y probado en un entorno de desarrollo específico para garantizar compatibilidad y estabilidad. Se recomienda replicar el mismo entorno al trabajar en el proyecto para evitar problemas.
 
-## Tecnologías Utilizadas
+### Herramientas y Versiones Utilizadas
 
-- **Backend**: Python, Django REST Framework
-- **Frontend**: React
-- **Base de Datos**: MariaDB 
-- **Contenedores**: Docker y Docker Compose
-- **             **: Guinicorn y Gnix
+El desarrollo se llevó a cabo utilizando las siguientes herramientas:
+
+- **Sistema Operativo**: Ubuntu 22.04.2 LTS
+- **Backend**:
+  - Python 3.10
+  - Django 4.2
+  - Django REST Framework 3.15.2
+- **Base de Datos**: MariaDB 10.9
+- **Frontend**:
+  - Node.js 18.x
+  - React 18.2
+- **Contenedores**:
+  - Docker 20.10.24
+  - Docker Compose 1.29.2
+- **Servidor WSGI**: Gunicorn 20.1.0
+- **Proxy Inverso**: Nginx 1.21
+
+Para obtener estas herramientas, visita los siguientes enlaces oficiales:
+- [Ubuntu](https://ubuntu.com/)
+- [Docker](https://www.docker.com/)
+- [Django](https://www.djangoproject.com/)
+- [React](https://reactjs.org/)
+- [MariaDB](https://mariadb.org/)
+
+### Configuración del Entorno
+
+A continuación, se detallan los pasos para configurar un entorno similar:
+
+1. **Sistema Operativo**
+   Este proyecto fue desarrollado en Ubuntu 22.04.2 LTS. Puedes instalarlo en una máquina virtual o en tu computadora local. Si necesitas un entorno virtualizado, puedes usar [VirtualBox](https://www.virtualbox.org/).
+
+2. **Docker y Docker Compose**
+   Docker y Docker Compose son necesarios para ejecutar los contenedores del proyecto. Sigue las instrucciones de instalación en la sección **Requisitos Previos** de este README.
+
+3. **Base de Datos**
+   Se utilizó MariaDB como base de datos principal. La configuración necesaria está incluida en los archivos Docker (ver `docker-compose.yml`).
+
+4. **Frontend**
+   Para el desarrollo del frontend, asegúrate de instalar Node.js 18.x o superior. Puedes descargarlo desde [nodejs.org](https://nodejs.org/).
+
+5. **Servidor WSGI y Proxy**
+   - Gunicorn está configurado dentro del contenedor Docker para manejar las solicitudes WSGI.
+   - Nginx se utiliza como proxy inverso y servidor de archivos estáticos. Ambos están configurados automáticamente al construir los contenedores.
+
+### Notas Importantes
+
+- **Compatibilidad**: Aunque el proyecto puede ejecutarse en otros sistemas operativos, recomendamos usar Ubuntu para asegurar que no haya discrepancias.
+- **Pruebas en otros entornos**: Además de Ubuntu, se realizaron pruebas en sistemas Windows 10/11 con Docker Desktop.
 
 ---
 
-## Versiones
-- **Django**: 4.2
-- **djangorestframework**: 3.15.2
-- **mysqlclient**: 2.2.5
-- **Docker**: 20.10 o superior
-- **Docker Compose**: 1.27 o superior
-
 ## Instalación
+
 ### Servidor
 Instrucciones para instalar el proyecto en un servidor, si corresponde.
 

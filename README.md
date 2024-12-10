@@ -63,15 +63,6 @@ Si Docker está instalado, verás un número de versión como resultado (por eje
   sudo systemctl enable docker
   sudo systemctl start docker
   ```
-
-**Paso 3: Verificar permisos (Linux únicamente)**  
-Asegúrate de que tu usuario tenga permisos para usar Docker sin `sudo`:
-```bash
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
-```
-
 ---
 
 ### 3. Docker Compose: Para gestionar los contenedores
@@ -99,27 +90,21 @@ Este proyecto fue diseñado y probado en un entorno de desarrollo específico pa
 
 El desarrollo se llevó a cabo utilizando las siguientes herramientas:
 
-- **Sistema Operativo**: Ubuntu 22.04.2 LTS
+- **Sistema Operativo**: Ubuntu 22.04.4 LTS
 - **Backend**:
-  - Python 3.10
+  - Python 3.10.12
   - Django 4.2
   - Django REST Framework 3.15.2
-- **Base de Datos**: MariaDB 10.9
+- **Base de Datos**: MariaDB 15.1
 - **Frontend**:
   - Node.js 18.x
-  - React 18.2
+  - React 18.3.1
 - **Contenedores**:
-  - Docker 20.10.24
-  - Docker Compose 1.29.2
-- **Servidor WSGI**: Gunicorn 20.1.0
-- **Proxy Inverso**: Nginx 1.21
+  - Docker 27.2.0
+  - Docker Compose 2.29.2
+- **Servidor WSGI**: Gunicorn 23.0.0
+- **Proxy Inverso**: Nginx 1.18.0  (ubuntu)
 
-Para obtener estas herramientas, visita los siguientes enlaces oficiales:
-- [Ubuntu](https://ubuntu.com/)
-- [Docker](https://www.docker.com/)
-- [Django](https://www.djangoproject.com/)
-- [React](https://reactjs.org/)
-- [MariaDB](https://mariadb.org/)
 
 ### Configuración del Entorno
 
@@ -128,6 +113,8 @@ A continuación, se detallan los pasos para configurar un entorno similar:
 1. **Sistema Operativo**
    Este proyecto fue desarrollado en Ubuntu 22.04.2 LTS. Puedes instalarlo en una máquina virtual o en tu computadora local. Si necesitas un entorno virtualizado, puedes usar [VirtualBox](https://www.virtualbox.org/).
 
+detallar pasos para virtualbox
+
 2. **Docker y Docker Compose**
    Docker y Docker Compose son necesarios para ejecutar los contenedores del proyecto. Sigue las instrucciones de instalación en la sección **Requisitos Previos** de este README.
 
@@ -135,17 +122,42 @@ A continuación, se detallan los pasos para configurar un entorno similar:
    Se utilizó MariaDB como base de datos principal. La configuración necesaria está incluida en los archivos Docker (ver `docker-compose.yml`).
 
 4. **Frontend**
-   Para el desarrollo del frontend, asegúrate de instalar Node.js 18.x o superior. Puedes descargarlo desde [nodejs.org](https://nodejs.org/).
-
+   Para el desarrollo del frontend, asegúrate de instalar Node.js 18.x o superior
+##### Instalación de Node.js
+ **Actualizar los repositorios del sistema:**
+   ```bash
+   sudo apt update
+   ```
+ **Instalar Node.js 18.x desde NodeSource:**
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+   sudo apt install -y nodejs
+   ```
+ **Verificar la instalación de Node.js y npm:**
+   ```bash
+   node -v
+   npm -v
+   ```
 5. **Servidor WSGI y Proxy**
    - Gunicorn está configurado dentro del contenedor Docker para manejar las solicitudes WSGI.
-   - Nginx se utiliza como proxy inverso y servidor de archivos estáticos. Ambos están configurados automáticamente al construir los contenedores.
+   - Nginx se utiliza como proxy inverso y servidor de archivos estáticos. Sigue los siguientes pasos para su instalación y configuración:
+     #### Instalación de Nginx
+ **Actualizar los repositorios del sistema:**
+   ```bash
+   sudo apt update
+   ```
+ **Instalar Nginx:**
+   ```bash
+   sudo apt install -y nginx
+   ```
+ **Verificar que Nginx esté funcionando:**
+   ```bash
+   sudo systemctl status nginx
+   ```
 
 ### Notas Importantes
 
 - **Compatibilidad**: Aunque el proyecto puede ejecutarse en otros sistemas operativos, recomendamos usar Ubuntu para asegurar que no haya discrepancias.
-- **Pruebas en otros entornos**: Además de Ubuntu, se realizaron pruebas en sistemas Windows 10/11 con Docker Desktop.
-
 ---
 
 ## Instalación
@@ -165,21 +177,21 @@ Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utili
    Crea un archivo `.env` en la raíz del proyecto y define las siguientes variables:
 
    ```env
-   # Base de Datos
-   DB_NAME=biblioteca
-   DB_USER=usuario
-   DB_PASSWORD=contraseña
-   DB_HOST=mariadb
-   DB_PORT=3306
+   SECRET_KEY=
+   DEBUG=
+   DB_NAME=
+   DB_USER=
+   DB_PASSWORD=
+   DB_HOST=
+   DB_PORT=
+   ALLOWED_HOSTS=
 
-   # Django
-   SECRET_KEY=tu_clave_secreta
-   DEBUG=False
-   ALLOWED_HOSTS=localhost
    ```
+   Aqui un ejemplo 
+  
 
 3. **Construir y ejecutar los contenedores**  
-   Construye y levanta todos los servicios necesarios (backend, frontend, base de datos, etc.):
+   Construye y levanta todos los servicios necesarios :
    ```bash
    docker-compose up --build -d
    ```
@@ -190,7 +202,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utili
    docker-compose ps
    ```
 
-   Accede a las siguientes URLs para verificar:
+   Accede a las siguientes URLs para verificar:(arreglar con url)
    - **Frontend**: [http://localhost](http://localhost)
    - **API Backend**: [http://localhost/api/](http://localhost/api/)
 ---
@@ -201,3 +213,9 @@ del proyecto.
 Lista de funcionalidades clave y una breve explicaci´on de c´omo usar la aplicacion.
 ## Construido con
 * [Herramienta](enlace) - Descripcion breve.
+
+- [Ubuntu](https://ubuntu.com/)
+- [Docker](https://www.docker.com/)
+- [Django](https://www.djangoproject.com/)
+- [React](https://reactjs.org/)
+- [MariaDB](https://mariadb.org/)

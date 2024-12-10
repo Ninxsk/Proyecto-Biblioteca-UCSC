@@ -123,7 +123,7 @@ detallar pasos para virtualbox
 
 4. **Frontend**
    Para el desarrollo del frontend, asegúrate de instalar Node.js 18.x o superior
-##### Instalación de Node.js
+#### Instalación de Node.js
  **Actualizar los repositorios del sistema:**
    ```bash
    sudo apt update
@@ -141,7 +141,7 @@ detallar pasos para virtualbox
 5. **Servidor WSGI y Proxy**
    - Gunicorn está configurado dentro del contenedor Docker para manejar las solicitudes WSGI.
    - Nginx se utiliza como proxy inverso y servidor de archivos estáticos. Sigue los siguientes pasos para su instalación y configuración:
-     #### Instalación de Nginx
+#### Instalación de Nginx
  **Actualizar los repositorios del sistema:**
    ```bash
    sudo apt update
@@ -154,6 +154,7 @@ detallar pasos para virtualbox
    ```bash
    sudo systemctl status nginx
    ```
+configurar ngiux 
 
 ### Notas Importantes
 
@@ -174,7 +175,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utili
    ```
 
 2. **Configurar variables de entorno**  
-   Crea un archivo `.env` en la raíz del proyecto y define las siguientes variables:
+   Crea un archivo `.env` en la direcion ./backend y define las siguientes variables:
 
    ```env
    SECRET_KEY=
@@ -187,8 +188,23 @@ Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utili
    ALLOWED_HOSTS=
 
    ```
-   Aqui un ejemplo 
-  
+Aqui un ejemplo 
+
+SECRET_KEY=mi_clave_secreta_super_segura_12345 // # Clave secreta de Django, usada para firmar datos sensibles.
+DEBUG=True // # Define si el proyecto está en modo depuración (True para desarrollo, False para producción).
+
+# Configuración de la Base de Datos
+
+DB_NAME=biblioteca // # Nombre de la base de datos.
+DB_USER=biblioteca_user // # Usuario con permisos para la base de datos.
+DB_PASSWORD=contraseña_segura // # Contraseña del usuario de la base de datos.
+DB_HOST=localhost // # Host donde se encuentra la base de datos (puede ser localhost o el nombre de un contenedor Docker).
+DB_PORT=3306 // # Puerto para conectarse a la base de datos (3306 es el puerto predeterminado de MariaDB/MySQL).
+
+# Hosts permitidos para acceder a la aplicación.
+
+ALLOWED_HOSTS=localhost,127.0.0.1 // # En producción, usa el dominio de tu sitio web (por ejemplo, biblioteca.talleres.cl).
+
 
 3. **Construir y ejecutar los contenedores**  
    Construye y levanta todos los servicios necesarios :

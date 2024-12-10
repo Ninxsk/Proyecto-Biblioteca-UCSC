@@ -1,0 +1,110 @@
+/* Contenedor principal */
+.taller-container {
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    
+}
+
+/* Elimina cualquier margen adicional que cause separación */
+.taller-container.expanded {
+    margin-left: 0; /* No agregues márgenes adicionales aquí */
+}
+
+.taller-container.collapsed {
+    margin-left: 0; /* Similar aquí */
+}
+/* Responsividad */
+@media (max-width: 768px) {
+    .taller-container {
+        margin-left: 80px; /* Predeterminado para pantallas pequeñas */
+    }
+}
+
+/* Encabezado flexible */
+.taller-container .flex-header {
+    display: flex;
+    flex-direction: column; /* Cambia a diseño de columna */
+    gap: 1rem; /* Espaciado entre título y herramientas */
+    margin-bottom: 1rem; /* Espacio entre encabezado y tabla */
+}
+
+.taller-container .flex-tools {
+    display: flex;
+    justify-content: space-between; /* Separa el buscador y el botón */
+    align-items: center;
+    flex-wrap: wrap; /* Permite que se ajuste en pantallas pequeñas */
+    gap: 1rem; /* Espaciado entre buscador y botón */
+}
+/* Tabla responsiva */
+.taller-container .card {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.taller-container .taller-title {
+    font-size: 1.8rem; /* Tamaño destacado */
+    margin: 0;
+    color: #333; /* Color para dar jerarquía */
+    text-align: left; /* Alineación a la izquierda */
+}
+
+/* Campo de búsqueda responsivo */
+.taller-container .p-input-icon-left {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    min-width: 250px; /* Ancho mínimo para evitar colapsos */
+    max-width: calc(100% - 100px); /* Evita que el botón se salga */
+    
+}
+
+.taller-container .p-input-icon-left input {
+    width: 100%;
+    padding: 0.5rem; /* Mejora la apariencia del campo */
+    font-size: 0.9rem;
+}
+
+/* Botón Crear Taller */
+.taller-container .p-button {
+    white-space: nowrap; /* Evita que el texto se corte */
+    margin: 0;
+}
+
+/* Título con espacio definido */
+.taller-container h2 {
+    flex-shrink: 0; /* Mantiene el título sin encogerse */
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Tabla responsiva */
+.taller-container .card {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones redondeados */
+.taller-container .p-button-rounded {
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Ajuste adicional para pantallas pequeñas */
+@media (max-width: 768px) {
+    .taller-container .flex-header {
+        flex-direction: column;
+        align-items: stretch; /* Alinea elementos en pantallas pequeñas */
+    }
+
+    .taller-container .p-button {
+        width: 100%; /* Botón ocupa todo el ancho */
+    }
+
+    .taller-container .p-input-icon-left {
+        width: 100%; /* Búsqueda ocupa todo el ancho */
+    }
+}

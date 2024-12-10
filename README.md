@@ -80,3 +80,25 @@ source env/bin/activate  # En Linux/Mac
 env\Scripts\activate      # En Windows
 pip install -r requirements.txt
 ```
+
+
+## Comenzando
+Instrucciones para obtener una copia del proyecto en funcionamiento
+en una m´aquina local.
+## Entorno de Desarrollo y Pruebas
+Este proyecto fue dise~nado en un entorno espec´ıfico, por lo que se
+recomienda utilizar las mismas versiones de software.
+## Configuraci´on del Entorno
+Pasos detallados para replicar el entorno de desarrollo y pruebas.
+## Instalaci´on
+### Servidor
+Instrucciones para instalar el proyecto en un servidor, si corresponde.
+### Cliente
+Instrucciones de configuraci´on para conectar el cliente al servidor.
+## Ejecutando las Pruebas
+Instrucciones para ejecutar pruebas y verificar el correcto funcionamiento
+del proyecto.
+## Funcionalidades y Uso
+Lista de funcionalidades clave y una breve explicaci´on de c´omo usar la aplicaci´on.
+## Construido con
+* [Herramienta](enlace) - Descripci´on breve.

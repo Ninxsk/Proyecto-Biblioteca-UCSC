@@ -150,25 +150,54 @@ A continuación, se detallan los pasos para configurar un entorno similar:
 
 ## Instalación
 
-### Servidor
-Instrucciones para instalar el proyecto en un servidor, si corresponde.
+Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utilizando Docker. Este proceso garantiza una configuración rápida y consistente.
 
+### Pasos de Instalación
+
+1. **Clonar el repositorio**  
+   Abre una terminal y ejecuta:
+   ```bash
+   git clone https://github.com/tu_usuario/tu_proyecto.git
+   cd tu_proyecto
+   ```
+
+2. **Configurar variables de entorno**  
+   Crea un archivo `.env` en la raíz del proyecto y define las siguientes variables:
+
+   ```env
+   # Base de Datos
+   DB_NAME=biblioteca
+   DB_USER=usuario
+   DB_PASSWORD=contraseña
+   DB_HOST=mariadb
+   DB_PORT=3306
+
+   # Django
+   SECRET_KEY=tu_clave_secreta
+   DEBUG=False
+   ALLOWED_HOSTS=localhost
+   ```
+
+3. **Construir y ejecutar los contenedores**  
+   Construye y levanta todos los servicios necesarios (backend, frontend, base de datos, etc.):
+   ```bash
+   docker-compose up --build -d
+   ```
+
+4. **Verificar los servicios**  
+   Asegúrate de que los servicios estén corriendo:
+   ```bash
+   docker-compose ps
+   ```
+
+   Accede a las siguientes URLs para verificar:
+   - **Frontend**: [http://localhost](http://localhost)
+   - **API Backend**: [http://localhost/api/](http://localhost/api/)
 ---
-
----
-
-
-
-
-
-
-
-### Cliente
-Instrucciones de configuraci´on para conectar el cliente al servidor.
 ## Ejecutando las Pruebas
 Instrucciones para ejecutar pruebas y verificar el correcto funcionamiento
 del proyecto.
 ## Funcionalidades y Uso
-Lista de funcionalidades clave y una breve explicaci´on de c´omo usar la aplicaci´on.
+Lista de funcionalidades clave y una breve explicaci´on de c´omo usar la aplicacion.
 ## Construido con
-* [Herramienta](enlace) - Descripci´on breve.
+* [Herramienta](enlace) - Descripcion breve.

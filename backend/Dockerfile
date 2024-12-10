@@ -1,20 +1,27 @@
-FROM python:3.9
+# Usa Ubuntu 22.04 como base
+FROM ubuntu:22.04
 
-WORKDIR /app
-
-# Instala dependencias del sistema necesarias para algunas bibliotecas de Python
+# Instalar dependencias del sistema y Python
 RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
     gcc \
     libmariadb-dev \
     default-libmysqlclient-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+# Establecer el directorio de trabajo
+WORKDIR /app
 
-COPY . /app/
+# Instalar dependencias de Python
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
 
+# Copiar el código del proyecto
+COPY . .
+
+# Exponer el puerto del backend
 EXPOSE 8000
 
-# Modifica el comando de inicio para falsificar las migraciones iniciales
-CMD ["sh", "-c", "python manage.py migrate --fake-initial && python manage.py runserver 0.0.0.0:8000"]
+# Comando de inicio con Gunicorn
+CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers=3"]

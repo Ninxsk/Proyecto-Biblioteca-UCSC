@@ -13,8 +13,90 @@ La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, s
 
 ---
 ## Comenzando
-Instrucciones para obtener una copia del proyecto en funcionamiento
-en una m´aquina local.
+Instrucciones para obtener una copia del proyecto en funcionamiento en una máquina local.
+
+Requisitos Previos
+Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas en tu máquina:
+
+
+# Comenzando
+Instrucciones para obtener una copia del proyecto en funcionamiento en una máquina local.
+
+## Requisitos Previos
+Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas:
+
+### 1. Git: Para clonar el repositorio
+
+**Paso 1: Verificar si Git está instalado**  
+Abre una terminal y ejecuta:
+```bash
+git --version
+```
+Si Git está instalado, verás un número de versión como resultado (por ejemplo, `git version 2.34.1`).
+
+**Paso 2: Instalar Git (si no está instalado)**  
+- **Windows/Mac**: Descárgalo desde [git-scm.com](https://git-scm.com/) y sigue las instrucciones del instalador.
+- **Linux**:
+  ```bash
+  sudo apt update
+  sudo apt install git
+  ```
+
+**Paso 3: Configurar Git**  
+Después de instalar Git, configura tu nombre de usuario y correo electrónico:
+```bash
+git config --global user.name "TuNombre"
+git config --global user.email "tu.email@dominio.com"
+```
+
+---
+
+### 2. Docker: Para construir y ejecutar los contenedores
+
+**Paso 1: Verificar si Docker está instalado**  
+Abre una terminal y ejecuta:
+```bash
+docker --version
+```
+Si Docker está instalado, verás un número de versión como resultado (por ejemplo, `Docker version 20.10.24`).
+
+**Paso 2: Instalar Docker (si no está instalado)**  
+- **Windows/Mac**: Descarga Docker Desktop desde [docker.com](https://www.docker.com/products/docker-desktop) y sigue las instrucciones del instalador.
+- **Linux**:
+  ```bash
+  sudo apt update
+  sudo apt install docker.io
+  sudo systemctl enable docker
+  sudo systemctl start docker
+  ```
+
+**Paso 3: Verificar permisos (Linux únicamente)**  
+Asegúrate de que tu usuario tenga permisos para usar Docker sin `sudo`:
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+---
+
+### 3. Docker Compose: Para gestionar los contenedores
+
+**Paso 1: Verificar si Docker Compose está instalado**  
+Ejecuta:
+```bash
+docker-compose --version
+```
+Si Docker Compose está instalado, verás un número de versión (por ejemplo, `docker-compose version 1.29.2`).
+
+**Paso 2: Instalar Docker Compose (si no está instalado)**  
+- **Windows/Mac**: Docker Compose ya viene incluido con Docker Desktop.
+- **Linux**:
+  ```bash
+  sudo apt update
+  sudo apt install docker-compose
+  ```
+
 
 ## Entorno de Desarrollo y Pruebas
 Este proyecto fue dise~nado en un entorno espec´ıfico, por lo que se
@@ -29,6 +111,7 @@ Pasos detallados para replicar el entorno de desarrollo y pruebas.
 - **Frontend**: React
 - **Base de Datos**: MariaDB 
 - **Contenedores**: Docker y Docker Compose
+- **             **: Guinicorn y Gnix
 
 ---
 

@@ -12,6 +12,16 @@ La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, s
 - **Reportes y Estadísticas**: Generar estadísticas detalladas y exportarlas en diversos formatos .
 
 ---
+## Comenzando
+Instrucciones para obtener una copia del proyecto en funcionamiento
+en una m´aquina local.
+
+## Entorno de Desarrollo y Pruebas
+Este proyecto fue dise~nado en un entorno espec´ıfico, por lo que se
+recomienda utilizar las mismas versiones de software.
+
+## Configuracion del Entorno
+Pasos detallados para replicar el entorno de desarrollo y pruebas.
 
 ## Tecnologías Utilizadas
 
@@ -29,70 +39,20 @@ La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, s
 - **Docker**: 20.10 o superior
 - **Docker Compose**: 1.27 o superior
 
-
----
-
-## Estructura del Proyecto
-```plaintext
-PROYECTO-BIBLIOTECA-UCSC/
-├── backend/
-│   ├── backend/
-│   │   ├── __pycache__/
-│   │   ├── __init__.py
-│   │   ├── asgi.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   └── wsgi.py
-│   ├── Taller/
-│   │   ├── __pycache__/
-│   │   ├── migrations/
-│   │   ├── __init__.py
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── tests.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   ├── db.sqlite3
-│   ├── Dockerfile
-│   ├── manage.py
-│   └── requirements.txt
-├── env/
-├── docker-compose.yml
-└── README.md
-```
-
----
-
-## Configuración del Proyecto
-
-### 1. Clonar el Repositorio
-```bash
-git clone https://github.com/tu-usuario/proyecto-biblioteca-ucsc.git
-cd proyecto-biblioteca-ucsc
-```
-
-### 2. Configurar el Entorno Virtual (opcional, si no usas Docker)
-```bash
-python -m venv env
-source env/bin/activate  # En Linux/Mac
-env\Scripts\activate      # En Windows
-pip install -r requirements.txt
-```
-
-
-## Comenzando
-Instrucciones para obtener una copia del proyecto en funcionamiento
-en una m´aquina local.
-## Entorno de Desarrollo y Pruebas
-Este proyecto fue dise~nado en un entorno espec´ıfico, por lo que se
-recomienda utilizar las mismas versiones de software.
-## Configuraci´on del Entorno
-Pasos detallados para replicar el entorno de desarrollo y pruebas.
-## Instalaci´on
+## Instalación
 ### Servidor
 Instrucciones para instalar el proyecto en un servidor, si corresponde.
+
+---
+
+---
+
+
+
+
+
+
+
 ### Cliente
 Instrucciones de configuraci´on para conectar el cliente al servidor.
 ## Ejecutando las Pruebas

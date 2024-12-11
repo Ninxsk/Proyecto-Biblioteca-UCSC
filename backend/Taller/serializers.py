@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Taller
+from .models import Taller, SolicitudTalleres
 
 #Creacion taller
 class TallerCreateSerializer(serializers.ModelSerializer):
@@ -92,4 +92,14 @@ class TallerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Taller
         fields= ['fecha','inicio','fin','modalidad','relator']
+
+
+
+#Serealizadores para solicitud
+
+class SolicitudSerealizer(serializers.ModelSerializer):
+    
+    class Meta:
+        model= SolicitudTalleres
+        fields= ['id' ]
         

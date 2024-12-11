@@ -1,7 +1,7 @@
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Taller
-from .serializers import TallerCreateSerializer, TallerListSerializer, TallerDetailSerializer, TallerUpdateSerializer
+from .models import Taller,SolicitudTalleres
+from .serializers import TallerCreateSerializer, TallerListSerializer, TallerDetailSerializer, TallerUpdateSerializer, SolicitudSerealizer
 
 class TallerViewSet(viewsets.ModelViewSet):
     queryset = Taller.objects.all()
@@ -18,3 +18,7 @@ class TallerViewSet(viewsets.ModelViewSet):
         elif self.action in ['update']:
             return TallerUpdateSerializer
         return TallerCreateSerializer
+    
+class SolicitudViewSet (viewsets.ReadOnlyModelViewSet):
+    serializer_class = SolicitudSerealizer
+    queryset = SolicitudTalleres.objects.all()

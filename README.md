@@ -110,51 +110,11 @@ El desarrollo se llevó a cabo utilizando las siguientes herramientas:
 
 A continuación, se detallan los pasos para configurar un entorno similar:
 
-1. **Sistema Operativo**
-   Este proyecto fue desarrollado en Ubuntu 22.04.2 LTS. Puedes instalarlo en una máquina virtual o en tu computadora local. Si necesitas un entorno virtualizado, puedes usar [VirtualBox](https://www.virtualbox.org/).
-
-detallar pasos para virtualbox
-
-2. **Docker y Docker Compose**
+1. **Docker y Docker Compose**
    Docker y Docker Compose son necesarios para ejecutar los contenedores del proyecto. Sigue las instrucciones de instalación en la sección **Requisitos Previos** de este README.
 
-3. **Base de Datos**
-   Se utilizó MariaDB como base de datos principal. La configuración necesaria está incluida en los archivos Docker (ver `docker-compose.yml`).
+2. **Base de Datos**
 
-4. **Frontend**
-   Para el desarrollo del frontend, asegúrate de instalar Node.js 18.x o superior
-#### Instalación de Node.js
- **Actualizar los repositorios del sistema:**
-   ```bash
-   sudo apt update
-   ```
- **Instalar Node.js 18.x desde NodeSource:**
-   ```bash
-   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-   sudo apt install -y nodejs
-   ```
- **Verificar la instalación de Node.js y npm:**
-   ```bash
-   node -v
-   npm -v
-   ```
-5. **Servidor WSGI y Proxy**
-   - Gunicorn está configurado dentro del contenedor Docker para manejar las solicitudes WSGI.
-   - Nginx se utiliza como proxy inverso y servidor de archivos estáticos. Sigue los siguientes pasos para su instalación y configuración:
-#### Instalación de Nginx
- **Actualizar los repositorios del sistema:**
-   ```bash
-   sudo apt update
-   ```
- **Instalar Nginx:**
-   ```bash
-   sudo apt install -y nginx
-   ```
- **Verificar que Nginx esté funcionando:**
-   ```bash
-   sudo systemctl status nginx
-   ```
-configurar ngiux 
 
 ### Notas Importantes
 
@@ -232,11 +192,9 @@ Instrucciones para ejecutar pruebas y verificar el correcto funcionamiento
 del proyecto.
 ## Funcionalidades y Uso
 Lista de funcionalidades clave y una breve explicaci´on de c´omo usar la aplicacion.
-## Construido con
-* [Herramienta](enlace) - Descripcion breve.
-
+## Construido con:
 - [Ubuntu](https://ubuntu.com/)
 - [Docker](https://www.docker.com/)
-- [Django](https://www.djangoproject.com/)
+- [Django](https://www.djangoproject.com/)|
 - [React](https://reactjs.org/)
 - [MariaDB](https://mariadb.org/)

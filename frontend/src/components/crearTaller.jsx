@@ -10,12 +10,14 @@ const CrearTaller = ({ onSuccess }) => {
 
   const horaInicio = watch("inicio");
   const horaFin = watch("fin");
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   // Cargar jornadas y solicitudes desde el backend
   useEffect(() => {
     const fetchJornadas = async () => {
       try {
-        const response = await axios.get('http://10.1.0.74/api/jornada/'); // URL correcta para jornadas
+        const response = await axios.get(`${API_URL}/jornada/`);
         setJornadas(response.data);
       } catch (error) {
         console.error("Error al cargar jornadas:", error);
@@ -24,7 +26,7 @@ const CrearTaller = ({ onSuccess }) => {
 
     const fetchSolicitudes = async () => {
       try {
-        const response = await axios.get('http://10.1.0.74/api/solicitudes/'); // URL correcta para solicitudes
+        const response = await axios.get(`${API_URL}/solicitudes/`);
         setSolicitudes(response.data);
       } catch (error) {
         console.error("Error al cargar solicitudes:", error);
@@ -33,7 +35,7 @@ const CrearTaller = ({ onSuccess }) => {
 
     fetchJornadas();
     fetchSolicitudes();
-  }, []);
+  }, [API_URL]);
 
   const onSubmit = async (data) => {
     if (horaInicio >= horaFin) {
@@ -46,7 +48,8 @@ const CrearTaller = ({ onSuccess }) => {
     }
 
     try {
-      await axios.post('http://10.1.0.74/api/talleres/', data);
+      await axios.post(`${API_URL}/api/talleres/`, data);
+
 
       Swal.fire({
         title: 'Taller Creado',

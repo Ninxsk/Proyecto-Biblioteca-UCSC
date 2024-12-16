@@ -4,7 +4,7 @@
 
 
 
-/backend/.env
+/.env
 /env
 /backend/backend/__pycache__
 /backend/Taller/__pycache__

@@ -15,7 +15,7 @@ const CrearTaller = ({ onSuccess }) => {
   useEffect(() => {
     const fetchJornadas = async () => {
       try {
-        const response = await axios.get('http://10.1.0.74/api/jornadas/'); // URL correcta para jornadas
+        const response = await axios.get('http://10.1.0.74/api/jornada/'); // URL correcta para jornadas
         setJornadas(response.data);
       } catch (error) {
         console.error("Error al cargar jornadas:", error);
@@ -251,3 +251,4 @@ const CrearTaller = ({ onSuccess }) => {
 };
 
 export default CrearTaller;
+

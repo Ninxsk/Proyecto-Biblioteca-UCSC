@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback} from 'react';
 import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -24,23 +24,27 @@ const Taller = ({ isNavbarExpanded }) => {
     });
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-    useEffect(() => {
-        fetchCapacitaciones();
-    }, []);
 
-    const fetchCapacitaciones = async () => {
+    // Función para cargar los datos de talleres, memorizada con useCallback
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    // Función para cargar los datos de talleres, memorizada con useCallback
+    const fetchCapacitaciones = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://10.1.0.74/api/talleres/');
+            const response = await axios.get(`${API_URL}/talleres/`);
             setCapacitaciones(response.data);
         } catch (err) {
             setError('No se pudieron cargar los talleres.');
         } finally {
             setLoading(false);
         }
-    };
+    }, [API_URL]); // Se memoriza si cambia API_URL
 
+    useEffect(() => {
+        fetchCapacitaciones();
+    }, [fetchCapacitaciones]); // Se ejecuta solo si fetchCapacitaciones cambia
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
         let _filters = { ...filters };

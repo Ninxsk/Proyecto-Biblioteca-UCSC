@@ -15,7 +15,7 @@ class Asistente (models.Model):
     
  
 class AsistenteExterno(models.Model):
-    id=models.AutoField(primary_key=True)
+    id_externo=models.AutoField(primary_key=True)
     num_documento=models.IntegerField(unique=True)
     nombre=models.CharField(max_length=100)
     

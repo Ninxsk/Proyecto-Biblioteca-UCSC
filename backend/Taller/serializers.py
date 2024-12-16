@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Taller, SolicitudTalleres
+from .models import Taller , Jornada,SolicitudTalleres
+
 
 #Creacion taller
 class TallerCreateSerializer(serializers.ModelSerializer):
@@ -33,7 +34,7 @@ class TallerListSerializer(serializers.ModelSerializer):
 
 
 
-#Dtalle de cada taller
+#Detalle de cada taller
 class TallerDetailSerializer(serializers.ModelSerializer):
     solicitud = serializers.PrimaryKeyRelatedField(read_only=True) 
     carrera = serializers.SerializerMethodField()
@@ -92,6 +93,32 @@ class TallerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Taller
         fields= ['fecha','inicio','fin','modalidad','relator']
+
+
+
+class JornadaCreateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model= Jornada
+        fields= ['nombre', 'inicio', 'termino']
+        
+    def validate(self, data):
+        if data ['inicio'] >= data ['termino']:
+            raise serializers.ValidationError("La fecha de inicio debe ser anterior a la fecha de termino")
+
+
+
+class JornadaListSerializer (serializers.ModelSerializer):       
+    class Meta:
+        model= Jornada
+        fields= ['id_jornada','nombre', 'inicio', 'termino']
+        
+
+
+        
+
+
+
 
 
 

@@ -14,6 +14,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os 
 
+
+
 #cargar las variables de entorno
 load_dotenv()
 
@@ -154,4 +156,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-CORS_ORIGIN_ALLOW_ALL = True
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

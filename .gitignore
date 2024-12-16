@@ -43,3 +43,5 @@ frontend/.env.production.local
 
 # Otros logs
 npm-debug.log*
+*.pyc
+__pycache__/

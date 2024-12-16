@@ -1,3 +1,4 @@
+
 """
 Django settings for backend project.
 
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'django_filters',
-    
     'Taller',
     'Asistencia'
     
@@ -156,6 +156,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -174,3 +176,4 @@ LOGGING = {
         },
     },
 }
+

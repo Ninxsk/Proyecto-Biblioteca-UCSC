@@ -13,31 +13,35 @@ La UCSC tiene a cargo diversos servicios bibliotecarios a lo largo de 6 sedes, s
 
 ---
 
-# Comenzando
-Instrucciones para obtener una copia del proyecto en funcionamiento en una máquina local.
 
-### Requisitos Previos
+# Comenzando 🚀
+
+## Requisitos Previos  
 Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas:
 
-### 1. Git: Para clonar el repositorio
+### **1. Git**: Para clonar el repositorio  
 
 **Paso 1: Verificar si Git está instalado**  
-Abre una terminal y ejecuta:
+Abre una terminal y ejecuta:  
 ```bash
 git --version
-```
-Si Git está instalado, verás un número de versión como resultado (por ejemplo, `git version 2.34.1`).
+```  
 
 **Paso 2: Instalar Git (si no está instalado)**  
-- **Windows/Mac**: Descárgalo desde [git-scm.com](https://git-scm.com/) y sigue las instrucciones del instalador.
-- **Linux**:
-  ```bash
-  sudo apt update
-  sudo apt install git
-  ```
+
+- **Windows**:  
+   1. Descarga el instalador desde [git-scm.com](https://git-scm.com/).  
+   2. Ejecuta el instalador y sigue los pasos predeterminados.  
+   3. Verifica la instalación ejecutando `git --version` en el símbolo de sistema (`cmd`).  
+
+- **Linux**:  
+   ```bash
+   sudo apt update
+   sudo apt install git
+   ```
 
 **Paso 3: Configurar Git**  
-Después de instalar Git, configura tu nombre de usuario y correo electrónico:
+Configura tu nombre y correo para Git:  
 ```bash
 git config --global user.name "TuNombre"
 git config --global user.email "tu.email@dominio.com"
@@ -45,43 +49,78 @@ git config --global user.email "tu.email@dominio.com"
 
 ---
 
-### 2. Docker: Para construir y ejecutar los contenedores
+### **2. Docker**: Para construir y ejecutar los contenedores  
 
 **Paso 1: Verificar si Docker está instalado**  
-Abre una terminal y ejecuta:
 ```bash
 docker --version
-```
-Si Docker está instalado, verás un número de versión como resultado (por ejemplo, `Docker version 20.10.24`).
+```  
 
 **Paso 2: Instalar Docker (si no está instalado)**  
-- **Windows/Mac**: Descarga Docker Desktop desde [docker.com](https://www.docker.com/products/docker-desktop) y sigue las instrucciones del instalador.
-- **Linux**:
-  ```bash
-  sudo apt update
-  sudo apt install docker.io
-  sudo systemctl enable docker
-  sudo systemctl start docker
-  ```
+
+- **Windows**:  
+   1. Descarga **Docker Desktop** desde [docker.com](https://www.docker.com/products/docker-desktop).  
+   2. Ejecuta el instalador y reinicia tu computadora.  
+
+   **Nota**: Para Windows 10/11 Home, habilita **WSL 2** siguiendo la guía oficial:  
+   [Instalar WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install).  
+
+- **Linux**:  
+   ```bash
+   sudo apt update
+   sudo apt install docker.io
+   sudo systemctl enable docker
+   sudo systemctl start docker
+   ```
+
 ---
 
-### 3. Docker Compose: Para gestionar los contenedores
+### **3. Docker Compose**: Para gestionar los contenedores  
 
 **Paso 1: Verificar si Docker Compose está instalado**  
-Ejecuta:
+Abre una terminal y ejecuta:  
 ```bash
 docker-compose --version
-```
-Si Docker Compose está instalado, verás un número de versión (por ejemplo, `docker-compose version 1.29.2`).
+```  
+Si Docker Compose está instalado, verás un número de versión (por ejemplo, `docker-compose version 1.29.2`).  
 
 **Paso 2: Instalar Docker Compose (si no está instalado)**  
-- **Windows/Mac**: Docker Compose ya viene incluido con Docker Desktop.
-- **Linux**:
-  ```bash
-  sudo apt update
-  sudo apt install docker-compose
-  ```
----  
+
+- **Windows**:  
+   Docker Compose viene incluido con **Docker Desktop**.  
+
+- **Linux**:  
+   ```bash
+   sudo apt update
+   sudo apt install docker-compose
+   ```
+
+---
+
+### **4. MariaDB**: Base de Datos  
+
+**Paso 1: Verificar si MariaDB está instalado**  
+- Abre una terminal y ejecuta:  
+   ```bash
+   mariadb --version
+   ```  
+
+**Paso 2: Instalar MariaDB**  
+
+- **Windows**:  
+   1. Descarga el instalador desde [MariaDB.org](https://mariadb.org/).  
+   2. Ejecuta el instalador y sigue las instrucciones.  
+   3. Configura una contraseña para el usuario **root**.  
+
+- **Linux**:  
+   ```bash
+   sudo apt update
+   sudo apt install mariadb-server
+   sudo systemctl enable mariadb
+   sudo systemctl start mariadb
+   ```  
+---
+
 ## Entorno de Desarrollo y Pruebas
 
 Este proyecto fue diseñado y probado en un entorno de desarrollo específico para garantizar compatibilidad y estabilidad. Se recomienda replicar el mismo entorno al trabajar en el proyecto para evitar problemas.

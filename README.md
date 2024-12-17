@@ -365,11 +365,13 @@ Si el comando mysql no está en el PATH, usa la ruta completa al ejecutable:
 ```bash
 "C:\\Program Files\\MariaDB\\MariaDB Server X.X\\bin\\mysql.exe" -u root -p nombre_basedatos < BaseDatos\\test_data.sql
 ```
---
-### Parámetros Importantes📌
+---
+### Parámetros Importantes ###📌
+
 nombre_basedatos: El nombre de la base de datos donde se importarán los datos de prueba.
 root: El usuario de la base de datos (puedes reemplazarlo por tu usuario).
 BaseDatos/test_data.sql: Ruta del archivo de datos de prueba.
+
 ---
 
 ## **Funcionalidades y Uso** 🛠️

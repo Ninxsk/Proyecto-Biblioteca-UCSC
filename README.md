@@ -451,6 +451,6 @@ Las siguientes acciones están disponibles en el módulo de gestión de talleres
 - [Ubuntu](https://ubuntu.com/)
 - [Docker](https://www.docker.com/)
 - [Django](https://www.djangoproject.com/)
-- [Django-Rest]([https://www.djangoproject.com/](https://www.django-rest-framework.org/))
+- [Django-Rest]((https://www.django-rest-framework.org/))
 - [React](https://reactjs.org/)
 - [MariaDB](https://mariadb.org/)

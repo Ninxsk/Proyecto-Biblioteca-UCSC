@@ -44,6 +44,7 @@ class TallerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Taller
         fields = [
+            'id'
             'nombre', 
             'solicitud', 
             'carrera', 

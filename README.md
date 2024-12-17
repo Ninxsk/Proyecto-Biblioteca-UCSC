@@ -358,9 +358,34 @@ Deberías ver algo como:
 
 ---
 
-## Ejecutando las Pruebas
-Instrucciones para ejecutar pruebas y verificar el correcto funcionamiento
-del proyecto.
+## **Cargar Datos de Prueba** 🧪
+
+Para importar datos de prueba, asegúrate de que la base de datos esté configurada y sigue estos pasos:
+
+1. **Ubica el archivo `test_data.sql` en la carpeta `/sql` del proyecto.**  
+   El archivo contiene registros de prueba para las tablas creadas manualmente.
+
+2. **Ejecuta el siguiente comando según tu sistema operativo:**
+
+### **Linux/Ubuntu**
+Abre una terminal y ejecuta:
+```bash
+mysql -u root -p nombre_basedatos < sql/test_data.sql
+```
+Windows
+Si el comando mysql no está en el PATH, usa la ruta completa al ejecutable:
+
+
+cmd
+Copiar código
+"C:\\Program Files\\MariaDB\\MariaDB Server X.X\\bin\\mysql.exe" -u root -p nombre_basedatos < sql\\test_data.sql
+
+Parámetros Importantes
+nombre_basedatos: El nombre de la base de datos donde se importarán los datos de prueba.
+root: El usuario de la base de datos (puedes reemplazarlo por tu usuario).
+sql/test_data.sql: Ruta del archivo de datos de prueba.
+
+
 ## **Funcionalidades y Uso** 🛠️
 
 En esta sección se detalla la lógica y el funcionamiento de las principales características del software, así como las acciones permitidas.

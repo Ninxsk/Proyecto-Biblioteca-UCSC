@@ -1,27 +1,33 @@
-# Usar Ubuntu Server 22.04 como imagen base
+# Base de Ubuntu para todo
 FROM ubuntu:22.04
 
-# Instalar Node.js y npm
-RUN apt-get update && apt-get install -y \
-    curl \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+# Instalar Node.js, NGINX y otras herramientas necesarias
+RUN apt-get update && apt-get install -y curl nginx && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
-# Establecer el directorio de trabajo
+# Configuración de trabajo
 WORKDIR /app
 
-# Copiar archivos de dependencias de Node.js
+# Construcción del frontend
 COPY package.json package-lock.json /app/
-
-# Instalar dependencias
 RUN npm install
-
-# Copiar todo el código fuente del proyecto
 COPY . /app/
+RUN npm run build
 
-# Exponer el puerto 3000
-EXPOSE 3000
+# Copiar los archivos compilados al directorio raíz de NGINX
+RUN rm -rf /var/www/html/* && \
+    cp -r /app/build/* /var/www/html/
 
-# Comando para iniciar la aplicación React
-CMD ["npm", "start"]
+# Copiar la configuración de NGINX
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Eliminar la configuración por defecto de NGINX
+RUN rm /etc/nginx/sites-enabled/default
+
+# Exponer el puerto 80
+EXPOSE 80
+
+# Comando de inicio para NGINX
+CMD ["nginx", "-g", "daemon off;"]

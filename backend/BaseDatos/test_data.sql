@@ -1,12 +1,12 @@
 -- Datos de prueba para 'asistente'
 INSERT INTO `asistente` (`id`, `rut`, `nombre`) VALUES 
-(1, '12345678K', 'Juan Pérez'),
-(2, '87654321L', 'María González');
+(1, '123456789', 'Juan Pérez'),
+(2, '876543214', 'María González');
 
 -- Datos de prueba para 'asistente_externo'
 INSERT INTO `asistente_externo` (`id_externo`, `num_documento`, `nombre`) VALUES 
-(1, 'DOC12345', 'John Doe'),
-(2, 'DOC67890', 'Jane Smith');
+(1, '12345', 'John Doe'),
+(2, '67890', 'Jane Smith');
 
 -- Datos de prueba para 'core_carrera'
 INSERT INTO `core_carrera` (`ua`, `nombre`, `cod_jornada`, `jornada`, `cod_facultad`, `facultad`, `cod_sede`, `sede`, `categoria`, `regulares`, `cuenta_anterior`) VALUES 
@@ -28,15 +28,15 @@ INSERT INTO `web_dom_talleres` (`id`, `nombre`) VALUES
 (1, 'Talleres de Programación'),
 (2, 'Talleres de Gestión');
 
--- Datos de prueba para 'web_sol_taller'
-INSERT INTO `web_sol_taller` (`id`, `rut`, `ua`, `email`, `taller`, `presencial`, `f_taller`, `f_solicitud`, `comentarios`) VALUES 
-(1, '12345678K', 1001, 'juan.perez@example.com', 1, 1, '2024-03-01', '2024-02-01', 'Inscripción confirmada'),
-(2, '87654321L', 1002, 'maria.gonzalez@example.com', 2, 0, '2024-03-10', '2024-02-05', 'Pendiente de pago');
-
 -- Datos de prueba para 'web_talleres'
 INSERT INTO `web_talleres` (`id_taller`, `nombre`, `objetivo`, `contenido`, `categoria`, `activo`) VALUES 
 (1, 'Introducción a Bases de Datos', 'Comprender bases relacionales', 'SQL, diseño de ERD', 1, 1),
 (2, 'Avanzado en MariaDB', 'Optimización de consultas', 'Claves foráneas, índices', 1, 1);
+
+-- Datos de prueba para 'web_sol_taller'
+INSERT INTO `web_sol_taller` (`id`, `rut`, `ua`, `email`, `taller`, `presencial`, `f_taller`, `f_solicitud`, `comentarios`) VALUES 
+(1, '12345678K', 1001, 'juan.perez@example.com', 1, 1, '2024-03-01', '2024-02-01', 'Inscripción confirmada'),
+(2, '87654321L', 1002, 'maria.gonzalez@example.com', 2, 0, '2024-03-10', '2024-02-05', 'Pendiente de pago');
 
 -- Datos de prueba para 'asiste'
 INSERT INTO `asiste` (`id_asiste`, `ua`, `id_asistente`, `id_taller`, `correo`, `comentario`, `satisfaccion`) VALUES 
@@ -47,3 +47,6 @@ INSERT INTO `asiste` (`id_asiste`, `ua`, `id_asistente`, `id_taller`, `correo`, 
 INSERT INTO `asiste_externo` (`id`, `id_externo`, `id_taller`, `correo`, `pais`, `institucion`, `comentario`, `satisfaccion`) VALUES 
 (1, 1, 1, 'john.doe@example.com', 'USA', 'University A', 'Buen nivel de contenido', 10),
 (2, 2, 2, 'jane.smith@example.com', 'Canada', 'College B', 'Excelente interacción', 8);
+
+
+

@@ -172,7 +172,7 @@ cd proyecto-biblioteca
 
 ### 2. **Crear la Base de Datos y el Usuario**
 
-#### **En Ubuntu/Linux** 🐧 o **Windows** 🪟  
+#### **En Ubuntu/Linux** 🐧 o **Windows** 
 
 Accede a la consola de MariaDB como el usuario **root**:
 
@@ -198,19 +198,19 @@ EXIT;
 
 ### 3. **Importar la Base de Datos**
 
-La estructura inicial de la base de datos está en el archivo **`BaseDatos/base_datos.sql`**.  
+La estructura inicial de la base de datos está en el archivo **`BaseDatos/schema.sql`**.  
 
 #### **En Linux** 🐧  
 
 Ejecuta el siguiente comando desde la terminal, estando en la carpeta raíz del proyecto:
 
 ```bash
-mysql -u nombre_usuario -p nombre_basedatos < BaseDatos/base_datos.sql
+mysql -u nombre_usuario -p nombre_basedatos < BaseDatos/schema.sql
 ```
 
 ---
 
-#### **En Windows** 🪟  
+#### **En Windows** 
 
 1. **Verifica si MariaDB está en el `PATH`**  
    Ejecuta en el símbolo del sistema (cmd):  
@@ -222,29 +222,16 @@ mysql -u nombre_usuario -p nombre_basedatos < BaseDatos/base_datos.sql
    - Usa la ruta completa al ejecutable `mysql`:
 
    ```cmd
-   "C:\Program Files\MariaDB\MariaDB Server X.X\bin\mysql.exe" -u nombre_usuario -p nombre_basedatos < C:\ruta\al\proyecto\BaseDatos\base_datos.sql
+   "C:\Program Files\MariaDB\MariaDB Server X.X\bin\mysql.exe" -u nombre_usuario -p nombre_basedatos < C:\ruta\al\proyecto\BaseDatos\schema.sql
    ```
    (Ajusta la ruta según la instalación de MariaDB y la ubicación del archivo SQL).  
-
-2. **Agregar MariaDB al `PATH`** *(opcional, recomendado)*:
-
-   - Abre **"Configuración avanzada del sistema"** → **"Variables de entorno"**.  
-   - Edita la variable `Path` y agrega:  
-     ```
-     C:\Program Files\MariaDB\MariaDB Server X.Xin
-     ```  
-   - Verifica que funcione ejecutando:  
-     ```cmd
-     mysql --version
-     ```
-
 ---
 
 ### Notas Importantes 📌
 
 - Asegúrate de que el servicio **MariaDB** esté activo antes de importar la base de datos.  
 - En **Windows**, si MariaDB no está en el `PATH`, deberás usar la ruta completa al ejecutable `mysql`.  
-- El archivo **`BaseDatos/base_datos.sql`** incluye la estructura inicial necesaria para que el sistema funcione correctamente.
+- El archivo **`BaseDatos/schema.sql`** incluye la estructura inicial necesaria para que el sistema funcione correctamente.
 
 ---
 
@@ -256,22 +243,23 @@ Sigue estos pasos para instalar y ejecutar el proyecto en un entorno local utili
 
 ### 1. **Configurar las Variables de Entorno**
 
-El proyecto requiere archivos **`.env`** tanto en el **backend** como en el **frontend** para configurar las variables necesarias.
+El proyecto requiere archivos **`.env`** tanto en a nivel **global** como en el **frontend** para configurar las variables necesarias.
+Sigue los siguientes ejemplos:
 
-#### **Backend** (`./backend/.env`)  
+#### **Global** (`/.env`)
 
 ```env
 # Configuración general
-DEBUG=True
-SECRET_KEY=NIMPS050699.
-ALLOWED_HOSTS=127.0.0.1,backend,localhost:8001
+DEBUG=True                                           #True para desarrollo y false para Produccion
+SECRET_KEY=clave secreta django                      #Tu la eliges 
+ALLOWED_HOSTS=127.0.0.1,backend,localhost:8001       #Direccion del backend  
 
 # Configuración de la base de datos
-DB_NAME=minerva
-DB_USER=root
-DB_PASSWORD=nimps050698.
-DB_HOST=192.168.1.86       # Dirección IP de la base de datos
-DB_PORT=3306
+DB_NAME= Bibloteca           #Nombre base de datos
+DB_USER= BibloteUser         #Nombre usuario base de datos
+DB_PASSWORD=User123          #Contraseña Base de datos
+DB_HOST=192.168.1.86         # Dirección IP de la base de datos
+DB_PORT=3306                 #Puerto Base de datos, por defecto mariaDB usa el '3306'
 ```
 
 #### **Frontend** (`./frontend/.env`)  
@@ -360,31 +348,29 @@ Deberías ver algo como:
 
 ## **Cargar Datos de Prueba** 🧪
 
-Para importar datos de prueba, asegúrate de que la base de datos esté configurada y sigue estos pasos:
+Para poder probar funcionalidades del proyecto , se creo un archivo .sql con datos de prueba, asegúrate de que la base de datos esté configurada y sigue estos pasos para obtenerlos:
 
-1. **Ubica el archivo `test_data.sql` en la carpeta `/sql` del proyecto.**  
-   El archivo contiene registros de prueba para las tablas creadas manualmente.
+1. **Ubica el archivo `test_data.sql` en la carpeta `/BaseDatos` del proyecto.**  
+   El archivo contiene registros de prueba para las tablas creadas.
 
 2. **Ejecuta el siguiente comando según tu sistema operativo:**
 
 ### **Linux/Ubuntu**
-Abre una terminal y ejecuta:
+Abre una terminal en la carpeta raiz del proyecto y ejecuta:
 ```bash
-mysql -u root -p nombre_basedatos < sql/test_data.sql
+mysql -u root -p nombre_basedatos < BaseDatos/test_data.sql
 ```
 Windows
 Si el comando mysql no está en el PATH, usa la ruta completa al ejecutable:
-
-
-cmd
-Copiar código
-"C:\\Program Files\\MariaDB\\MariaDB Server X.X\\bin\\mysql.exe" -u root -p nombre_basedatos < sql\\test_data.sql
-
-Parámetros Importantes
+```bash
+"C:\\Program Files\\MariaDB\\MariaDB Server X.X\\bin\\mysql.exe" -u root -p nombre_basedatos < BaseDatos\\test_data.sql
+```
+--
+### Parámetros Importantes📌
 nombre_basedatos: El nombre de la base de datos donde se importarán los datos de prueba.
 root: El usuario de la base de datos (puedes reemplazarlo por tu usuario).
-sql/test_data.sql: Ruta del archivo de datos de prueba.
-
+BaseDatos/test_data.sql: Ruta del archivo de datos de prueba.
+---
 
 ## **Funcionalidades y Uso** 🛠️
 
@@ -408,21 +394,28 @@ Las siguientes acciones están disponibles en el módulo de gestión de talleres
 
 1. **Visualización de la Lista de Talleres**  
    - Se puede consultar una lista con todos los talleres creados en el sistema.  
-   - La lista muestra información básica como el **nombre** y los **detalles asociados**.
+   - La lista muestra información básica como el **id**,**nombre**,**fecha** y **solicitud**.
 
 2. **Visualización de Información Detallada**  
    - Es posible acceder a la información específica de cada taller, que incluye:  
      - **Nombre** del taller.  
-     - **Descripción** y detalles.  
+     - **Relator**.
+     - **Fecha**.
+     - **Hora de Inicio**.
+     - **Hora de termino**.
+     - **modalidad** presencial u online. 
      - **Solicitudes** asociadas, si existen.  
      - **Jornada** a la que pertenece, si fue asignada.
+     - **Lugar**.
 
 3. **Edición de Campos Permitidos**  
    - El sistema permite editar campos específicos de un taller.  
    - Los campos que se pueden modificar incluyen:  
-     - **Nombre del taller**.  
-     - **Descripción**.  
-     - **Jornada** y **solicitud**, si corresponde.
+     - **Fecha**.  
+     - **Hora de Inicio**.  
+     - **Hora de termino**
+     - **Modalidad**
+     - **Relator**
 
 ---
 
@@ -436,8 +429,10 @@ Las siguientes acciones están disponibles en el módulo de gestión de talleres
 ### **Ejemplo de Flujo** 🚀
 
 1. **Crear un Taller**  
-   - El usuario accede al módulo de creación de talleres.  
-   - Llena los campos básicos: nombre, descripción.  
+   - El usuario accede al módulo de la lista de talleres.
+   - Selecciona 'Crear Taller'
+   - Llena los campos básicos: nombre, relator,fecha,hora          
+     inicio,hora termino,modalidad,solicitus,joranda,lugar.  
    - Opcionalmente, asigna una solicitud y una jornada.  
 
 2. **Ver Lista de Talleres**  
@@ -447,13 +442,13 @@ Las siguientes acciones están disponibles en el módulo de gestión de talleres
    - El usuario selecciona un taller específico para consultar su información completa.
 
 4. **Editar un Taller**  
-   - El usuario actualiza los campos permitidos, como nombre, descripción o asignaciones (solicitud o jornada).
-
+   - El usuario actualiza los campos permitidos.
 ---
 
 ## Construido con:
 - [Ubuntu](https://ubuntu.com/)
 - [Docker](https://www.docker.com/)
 - [Django](https://www.djangoproject.com/)|
+- [Django-Rest]([https://www.djangoproject.com/](https://www.django-rest-framework.org/))|
 - [React](https://reactjs.org/)
 - [MariaDB](https://mariadb.org/)

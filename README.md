@@ -1,4 +1,4 @@
-# Proyecto Biblioteca UCSC 📚
+# Proyecto Biblioteca UCSC  📚
 
 Desarrollo de un módulo de software personalizado para la Dirección de Bibliotecas de la Universidad Católica de la Santísima Concepción (UCSC). Este módulo tiene como objetivo optimizar la toma de asistencia en las capacitaciones,la generación de certificados y permitir la obtencion de metricas a partir de los datos guardados, integrándose de manera eficiente con los sistemas bibliotecarios actuales.
 ---

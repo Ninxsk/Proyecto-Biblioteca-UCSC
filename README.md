@@ -179,7 +179,7 @@ Accede a la consola de MariaDB como el usuario **root**:
 ```bash
 mysql -u root -p
 ```
-### ** En window**
+### **En window**
 
 Abre la consola de MySQL Client
 
@@ -225,7 +225,7 @@ mysql -u nombre_usuario -p nombre_basedatos < BaseDatos/schema.sql
    - Usa la ruta completa al ejecutable `mysql`:
 
    ```cmd
-   "C:\Program Files\MariaDB\MariaDB Server X.X\bin\mysql.exe" -u nombre_usuario -p nombre_basedatos < C:\ruta\al\proyecto\BaseDatos\schema.sql
+   C:\Archivos de programa\MariaDB 11.5\bin\mysql.exe" -u nino -p prueba < "C:\Users\admin\OneDrive\Escritorio\Proyecto-Biblioteca-UCSC\backend\BaseDatos\schema.sql"
    ```
    (Ajusta la ruta según la instalación de MariaDB y la ubicación del archivo SQL).  
 ---
@@ -386,8 +386,9 @@ mysql -u root -p nombre_basedatos < BaseDatos/test_data.sql
 Windows
 Si el comando mysql no está en el PATH, usa la ruta completa al ejecutable:
 ```bash
-"C:\\Program Files\\MariaDB\\MariaDB Server X.X\\bin\\mysql.exe" -u root -p nombre_basedatos < BaseDatos\\test_data.sql
+C:\Archivos de programa\MariaDB 11.5\bin\mysql.exe" -u nino -p prueba < "C:\Users\admin\OneDrive\Escritorio\Proyecto-Biblioteca-UCSC\backend\BaseDatos\test_data.sql"
 ```
+**Recuerda ajustar la ruta segun tus directorios**
 ---
 ### Parámetros Importantes ###📌
 

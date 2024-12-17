@@ -164,7 +164,7 @@ La base de datos inicial del proyecto se encuentra en la carpeta **`BaseDatos`**
 Primero, clona el repositorio y accede a la carpeta principal del proyecto:
 
 ```bash
-git clone https://github.com/usuario/proyecto-biblioteca.git
+git clone https://github.com/usuario/proyecto-biblioteca.git](https://github.com/Ninxsk/Proyecto-Biblioteca-UCSC.git
 cd proyecto-biblioteca
 ```
 

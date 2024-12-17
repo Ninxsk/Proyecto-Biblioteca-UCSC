@@ -8,7 +8,7 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - "8001:8000"  # Puerto accesible desde la máquina host
+      - "8001:8000"  
     environment:
       - DEBUG=${DEBUG}
       - SECRET_KEY=${SECRET_KEY}
@@ -27,7 +27,7 @@ services:
     container_name: frontend
     volumes:
       - ./frontend:/app
-      - /app/node_modules  # Evita sobrescribir node_modules
+      - /app/node_modules  
     ports:
       - "3001:80"  # Nginx expone el puerto 80 como 3001 en el host
     environment:

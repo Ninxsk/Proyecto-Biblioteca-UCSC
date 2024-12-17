@@ -4,8 +4,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { FilterMatchMode } from 'primereact/api';
 import CrearTaller from './crearTaller';
+import DetalleTaller from './tallerDetail';
 import '../styles/taller.css';
 
 const Taller = ({ isNavbarExpanded }) => {
@@ -16,15 +16,15 @@ const Taller = ({ isNavbarExpanded }) => {
     const [displayDetailDialog, setDisplayDetailDialog] = useState(false);
     const [displayCreateDialog, setDisplayCreateDialog] = useState(false);
     const [filters, setFilters] = useState({
-        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        id: { value: null, matchMode: FilterMatchMode.EQUALS },
-        nombre: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        fecha: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        solicitud: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        global: { value: null, matchMode: 'contains' },
+        id: { value: null, matchMode: 'equals' },
+        nombre: { value: null, matchMode: 'contains' },
+        fecha: { value: null, matchMode: 'contains' },
+        solicitud: { value: null, matchMode: 'equals' },
     });
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-
+   
     // Función para cargar los datos de talleres, memorizada con useCallback
     const API_URL = process.env.REACT_APP_API_URL;
 
@@ -45,12 +45,23 @@ const Taller = ({ isNavbarExpanded }) => {
     useEffect(() => {
         fetchCapacitaciones();
     }, [fetchCapacitaciones]); // Se ejecuta solo si fetchCapacitaciones cambia
+
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
         let _filters = { ...filters };
         _filters['global'].value = value;
         setFilters(_filters);
         setGlobalFilterValue(value);
+    };
+
+    const openDetalleModal = async (tallerId) => {
+        try {
+            const response = await axios.get(`${API_URL}/talleres/${tallerId}/`);
+            setDetalleTaller(response.data);
+            setDisplayDetailDialog(true);
+        } catch (err) {
+            console.error('Error al cargar detalles del taller:', err);
+        }
     };
 
     const renderHeader = () => (
@@ -163,14 +174,14 @@ const Taller = ({ isNavbarExpanded }) => {
                                 <Button
                                     label="Detalle"
                                     className="p-button-rounded p-button-info"
-                                    onClick={() => {
-                                        setDetalleTaller(rowData);
-                                        setDisplayDetailDialog(true);
-                                    }}
+                                    onClick={() => openDetalleModal(rowData.id)}
                                 />
                                 <Button
                                     label="Lista de Asistencia"
                                     className="p-button-rounded p-button-secondary"
+                                    onClick={() => {
+                                        console.log(`Listar asistencia para el taller ID: ${rowData.id}`);
+                                    }}
                                 />
                             </div>
                         )}
@@ -178,33 +189,30 @@ const Taller = ({ isNavbarExpanded }) => {
                     />
                 </DataTable>
             </div>
+
+            {/* Modal Crear Taller */}
             <Dialog
                 visible={displayCreateDialog}
                 style={{ width: '50vw' }}
-                header="Crear Nuevo Taller"
                 modal
                 onHide={() => setDisplayCreateDialog(false)}
             >
-                <CrearTaller onSuccess={fetchCapacitaciones} />
+                <CrearTaller 
+                    onSuccess={() => {
+                        fetchCapacitaciones();
+                        setDisplayCreateDialog(false); // Cerrar el modal al actualizar
+                    }} 
+                />
             </Dialog>
+
+            {/* Modal Detalle Taller */}
             <Dialog
                 visible={displayDetailDialog}
-                style={{ width: '50vw' }}
-                header="Detalle del Taller"
+                style={{ width: '60vw' }}
                 modal
                 onHide={() => setDisplayDetailDialog(false)}
             >
-                {detalleTaller ? (
-                    <div>
-                        <h3>{detalleTaller.nombre}</h3>
-                        <p><strong>Fecha:</strong> {detalleTaller.fecha}</p>
-                        <p><strong>Relator:</strong> {detalleTaller.relator}</p>
-                        <p><strong>Modalidad:</strong> {detalleTaller.modalidad}</p>
-                        <p><strong>Lugar:</strong> {detalleTaller.lugar}</p>
-                    </div>
-                ) : (
-                    <p>Cargando detalles...</p>
-                )}
+                {detalleTaller && <DetalleTaller detalle={detalleTaller} />}
             </Dialog>
         </div>
     );

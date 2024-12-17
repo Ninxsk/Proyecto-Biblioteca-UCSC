@@ -327,7 +327,7 @@ Deberías ver algo como:
 |----------------------------|----------------|------------------------|
 | backend                    | Up (running)   | 0.0.0.0:8001->8000     |
 | frontend                   | Up (running)   | 0.0.0.0:3001->3000     |
-| mariadb                    | Up (healthy)   | 0.0.0.0:3306->3306     |
+
 
 ---
 
@@ -365,11 +365,13 @@ Si el comando mysql no está en el PATH, usa la ruta completa al ejecutable:
 ```bash
 "C:\\Program Files\\MariaDB\\MariaDB Server X.X\\bin\\mysql.exe" -u root -p nombre_basedatos < BaseDatos\\test_data.sql
 ```
---
-### Parámetros Importantes📌
+---
+### Parámetros Importantes ###📌
+
 nombre_basedatos: El nombre de la base de datos donde se importarán los datos de prueba.
 root: El usuario de la base de datos (puedes reemplazarlo por tu usuario).
 BaseDatos/test_data.sql: Ruta del archivo de datos de prueba.
+
 ---
 
 ## **Funcionalidades y Uso** 🛠️
@@ -448,7 +450,7 @@ Las siguientes acciones están disponibles en el módulo de gestión de talleres
 ## Construido con:
 - [Ubuntu](https://ubuntu.com/)
 - [Docker](https://www.docker.com/)
-- [Django](https://www.djangoproject.com/)|
-- [Django-Rest]([https://www.djangoproject.com/](https://www.django-rest-framework.org/))|
+- [Django](https://www.djangoproject.com/)
+- [Django-Rest](https://www.django-rest-framework.org/)
 - [React](https://reactjs.org/)
 - [MariaDB](https://mariadb.org/)

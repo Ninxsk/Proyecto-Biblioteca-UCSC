@@ -172,13 +172,16 @@ cd proyecto-biblioteca
 
 ### 2. **Crear la Base de Datos y el Usuario**
 
-#### **En Ubuntu/Linux** 🐧 o **Windows** 
+#### **En Ubuntu/Linux** 🐧 
 
 Accede a la consola de MariaDB como el usuario **root**:
 
 ```bash
 mysql -u root -p
 ```
+### ** En window**
+
+Abre la consola de MySQL Client
 
 Ejecuta los siguientes comandos para crear la base de datos, el usuario y asignar permisos:
 

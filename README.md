@@ -276,29 +276,49 @@ REACT_APP_ENV=development                     # Entorno de desarrollo
 El archivo **`docker-compose.yml`** ya contiene la configuración de puertos y enlaza correctamente los servicios. Aquí un resumen de las configuraciones importantes:
 
 ```yaml
+version: '3.8'
+
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+    container_name: backend
+    volumes:
+      - ./backend:/app
     ports:
-      - "8001:8000"        # Puerto 8001 mapeado al contenedor
-    env_file:
-      - ./backend/.env
-    depends_on:
-      - mariadb
+      - "8001:8000"  # Puerto accesible desde la máquina host
+    environment:
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    networks:
+      - app_network
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+    container_name: frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  
     ports:
-      - "3001:3000"        # Puerto 3001 mapeado al contenedor
-    env_file:
-      - ./frontend/.env
-
-  mariadb:
-    image: mariadb:10.5
-    ports:
-      - "3306:3306"        # Puerto predeterminado de MariaDB
+      - "3001:80"  # Nginx expone el puerto 80 como 3001 en el host
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
+      - REACT_APP_API_URL=http://backend:8000/api/  
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
 ```
 
 ---
@@ -326,7 +346,7 @@ Deberías ver algo como:
 | Nombre del Contenedor      | Estado         | Puertos                |
 |----------------------------|----------------|------------------------|
 | backend                    | Up (running)   | 0.0.0.0:8001->8000     |
-| frontend                   | Up (running)   | 0.0.0.0:3001->3000     |
+| frontend                   | Up (running)   | 0.0.0.0:80->80         |
 
 
 ---

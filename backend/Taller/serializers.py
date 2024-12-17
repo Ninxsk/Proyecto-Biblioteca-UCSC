@@ -44,7 +44,7 @@ class TallerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Taller
         fields = [
-            'id'
+            'id',
             'nombre', 
             'solicitud', 
             'carrera', 
@@ -94,6 +94,8 @@ class TallerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Taller
         fields= ['fecha','inicio','fin','modalidad','relator']
+
+#validar la hora
 
 
 

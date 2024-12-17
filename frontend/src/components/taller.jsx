@@ -25,10 +25,10 @@ const Taller = ({ isNavbarExpanded }) => {
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
    
-    // Función para cargar los datos de talleres, memorizada con useCallback
+  
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // Función para cargar los datos de talleres, memorizada con useCallback
+ 
     const fetchCapacitaciones = useCallback(async () => {
         setLoading(true);
         setError(null);
@@ -40,11 +40,11 @@ const Taller = ({ isNavbarExpanded }) => {
         } finally {
             setLoading(false);
         }
-    }, [API_URL]); // Se memoriza si cambia API_URL
+    }, [API_URL]); 
 
     useEffect(() => {
         fetchCapacitaciones();
-    }, [fetchCapacitaciones]); // Se ejecuta solo si fetchCapacitaciones cambia
+    }, [fetchCapacitaciones]);
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;

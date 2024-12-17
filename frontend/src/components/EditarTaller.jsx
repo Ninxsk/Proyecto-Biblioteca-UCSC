@@ -25,7 +25,7 @@ const EditarTaller = ({ detalle, onSave, onCancel }) => {
       confirmButtonText: "Sí, guardar cambios",
       cancelButtonText: "Cancelar",
       customClass: {
-        popup: "swal-popup", // Aplicaremos un z-index a esta clase
+        popup: "swal-popup", 
       },
       backdrop: true,
     }).then((result) => {

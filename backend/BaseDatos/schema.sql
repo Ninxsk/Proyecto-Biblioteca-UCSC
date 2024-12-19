@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `asiste`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `asiste` (
   `id_asiste` int(5) unsigned NOT NULL AUTO_INCREMENT,
-  `ua` int(5) unsigned NOT NULL,
+  `ua` int(4) unsigned NOT NULL,
   `id_asistente` int(5) unsigned DEFAULT NULL,
   `id_taller` int(5) unsigned NOT NULL,
   `correo` varchar(100) NOT NULL,

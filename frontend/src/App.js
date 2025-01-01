@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Taller from './components/taller';
 import Home from './components/home';
+import ListaAsistencia from './components/listaAsistencia'; 
 
 const App = () => {
     const [isNavbarExpanded, setIsNavbarExpanded] = useState(true);
@@ -15,25 +16,23 @@ const App = () => {
         <Router>
             <div
                 style={{
-                    display: 'flex', // Configura un contenedor flex
-                    height: '100vh', // Asegura que ocupe toda la altura de la pantalla
+                    display: 'flex',
+                    height: '100vh',
                 }}
             >
-                {/* Navbar */}
                 <Navbar toggleNavbar={toggleNavbar} isNavbarExpanded={isNavbarExpanded} />
-
-                {/* Contenido principal */}
                 <div
                     style={{
-                        flexGrow: 1, // El contenido principal ocupa el espacio restante
+                        flexGrow: 1,
                         padding: '20px',
-                        boxSizing: 'border-box', // Incluye el padding en el tamaño total
+                        boxSizing: 'border-box',
                         backgroundColor: '#f8f9fa',
                     }}
                 >
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/talleres" element={<Taller isNavbarExpanded={isNavbarExpanded} />} />
+                        <Route path="/talleres/:tallerId/asistencia" element={<ListaAsistencia />} />
                     </Routes>
                 </div>
             </div>
@@ -42,3 +41,12 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
+
+
+
+

@@ -7,8 +7,10 @@ import { Dialog } from 'primereact/dialog';
 import CrearTaller from './crearTaller';
 import DetalleTaller from './tallerDetail';
 import '../styles/taller.css';
+import { useNavigate } from 'react-router-dom';
 
 const Taller = ({ isNavbarExpanded }) => {
+    const navigate = useNavigate();
     const [capacitaciones, setCapacitaciones] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -25,10 +27,9 @@ const Taller = ({ isNavbarExpanded }) => {
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
    
-  
     const API_URL = process.env.REACT_APP_API_URL;
 
- 
+  
     const fetchCapacitaciones = useCallback(async () => {
         setLoading(true);
         setError(null);
@@ -44,7 +45,7 @@ const Taller = ({ isNavbarExpanded }) => {
 
     useEffect(() => {
         fetchCapacitaciones();
-    }, [fetchCapacitaciones]);
+    }, [fetchCapacitaciones]); 
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -179,9 +180,8 @@ const Taller = ({ isNavbarExpanded }) => {
                                 <Button
                                     label="Lista de Asistencia"
                                     className="p-button-rounded p-button-secondary"
-                                    onClick={() => {
-                                        console.log(`Listar asistencia para el taller ID: ${rowData.id}`);
-                                    }}
+                                    onClick={() =>  navigate(`/talleres/${rowData.id}/asistencia`)} 
+                                    
                                 />
                             </div>
                         )}
@@ -200,7 +200,7 @@ const Taller = ({ isNavbarExpanded }) => {
                 <CrearTaller 
                     onSuccess={() => {
                         fetchCapacitaciones();
-                        setDisplayCreateDialog(false); // Cerrar el modal al actualizar
+                        setDisplayCreateDialog(false); 
                     }} 
                 />
             </Dialog>

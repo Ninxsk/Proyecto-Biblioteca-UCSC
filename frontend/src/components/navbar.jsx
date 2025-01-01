@@ -6,14 +6,14 @@ function Navbar({ toggleNavbar, isNavbarExpanded }) {
         <div
             style={{
                 width: isNavbarExpanded ? '250px' : '80px',
-                backgroundColor: '#343a40',
+                backgroundColor: '#242A3C',
                 color: 'white',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                padding: '10px',
+                padding: '20px',
                 transition: 'width 0.3s ease',
-                boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
+                boxShadow: '2px 0 5px rgba(191, 25, 25, 0.1)',
             }}
         >
             {/* Botón de hamburguesa */}

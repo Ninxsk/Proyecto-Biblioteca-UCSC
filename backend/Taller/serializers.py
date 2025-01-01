@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Taller , Jornada,SolicitudTalleres
+from .models import Taller , Jornada,SolicitudTalleres, Carrera
 
 
 #Creacion taller
@@ -117,19 +117,17 @@ class JornadaListSerializer (serializers.ModelSerializer):
         fields= ['id_jornada','nombre', 'inicio', 'termino']
         
 
-
-        
-
-
-
-
-
-
 #Serealizadores para solicitud
 
 class SolicitudSerealizer(serializers.ModelSerializer):
     
     class Meta:
         model= SolicitudTalleres
-        fields= ['id' ]
+        fields= '__all__'
         
+#Serealizador para carrera
+
+class CarreraSerealizer (serializers.ModelSerializer):
+    class Meta:
+         model=Carrera
+         fields= '__all__'

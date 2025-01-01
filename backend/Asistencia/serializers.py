@@ -33,7 +33,7 @@ class AsistenteExternoDetalleSerializer(serializers.ModelSerializer):
         model = ListaAsistenciaExterno
         fields = [
             'id',
-            'taller'
+            'taller',
             'nombre',
             'num_documento',
             'correo',

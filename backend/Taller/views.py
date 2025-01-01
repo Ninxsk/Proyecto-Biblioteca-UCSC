@@ -2,8 +2,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Taller , Jornada,SolicitudTalleres
-from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer, JornadaCreateSerializer , JornadaListSerializer, SolicitudSerealizer
+from .models import Taller , Jornada,SolicitudTalleres,Carrera
+from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer, JornadaCreateSerializer , JornadaListSerializer, SolicitudSerealizer,CarreraSerealizer
 from Asistencia.models import ListaAsistencia, ListaAsistenciaExterno
 from Asistencia.serializers import ListaAsistenciaSerializer,CrearAsistenteInternoSerializer,CrearAsistenciaExternaSerializer
 
@@ -87,3 +87,8 @@ class JornadaViewSet( viewsets.ModelViewSet):
 class SolicitudViewSet (viewsets.ReadOnlyModelViewSet):
     serializer_class = SolicitudSerealizer
     queryset = SolicitudTalleres.objects.all()
+    
+    
+class CarreraViewSet (viewsets.ReadOnlyModelViewSet):
+    serializer_class = CarreraSerealizer
+    queryset = Carrera.objects.all()

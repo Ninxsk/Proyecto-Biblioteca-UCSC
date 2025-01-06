@@ -12,21 +12,16 @@ const DetalleTaller = ({ detalle, onTallerUpdated }) => {
     fin: detalle.fin,
     modalidad: detalle.modalidad,
   });
+
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleSaveChanges = async (updatedData) => {
     try {
-      const response = await axios.put(
-        `${API_URL}/talleres/${detalle.id}/`,
-        
-        updatedData
-      );
-
+      const response = await axios.put(`${API_URL}/talleres/${detalle.id}/`, updatedData);
       Swal.fire("Éxito", "El taller ha sido actualizado correctamente.", "success");
       setIsEditing(false);
       if (onTallerUpdated) onTallerUpdated(response.data);
     } catch (error) {
-
       Swal.fire(
         "Error",
         error.response?.data?.detail || "Error al actualizar el taller.",
@@ -49,10 +44,21 @@ const DetalleTaller = ({ detalle, onTallerUpdated }) => {
   return (
     <div className="container mt-4">
       <div className="card mx-auto" style={{ maxWidth: "800px" }}>
-        <div className="card-header bg-primary text-white d-flex justify-content-between">
+        <div
+          className="card-header d-flex justify-content-between align-items-center"
+          style={{ backgroundColor: "#697588", color: "white" }}
+        >
           <h5 className="mb-0">Detalles del Taller</h5>
           {!isEditing && (
-            <button className="btn btn-warning btn-sm" onClick={() => setIsEditing(true)}>
+            <button
+              className="btn btn-sm"
+              style={{
+                backgroundColor: "#2f3542",
+                color: "white",
+                border: "none",
+              }}
+              onClick={() => setIsEditing(true)}
+            >
               Editar
             </button>
           )}
@@ -60,7 +66,6 @@ const DetalleTaller = ({ detalle, onTallerUpdated }) => {
 
         <div className="card-body">
           <div className="row">
-            {/* Campos NO editables */}
             <div className="col-md-6 mb-3">
               <strong>Nombre:</strong>
               <input type="text" className="form-control" value={detalle.nombre || "N/A"} disabled />

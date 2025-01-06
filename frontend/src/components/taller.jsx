@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import CrearTaller from './crearTaller';
 import DetalleTaller from './tallerDetail';
-import '../styles/taller.css';
+import '../styles/datatable.css';
 import { useNavigate } from 'react-router-dom';
 
 const Taller = ({ isNavbarExpanded }) => {
@@ -26,10 +26,8 @@ const Taller = ({ isNavbarExpanded }) => {
     });
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-   
     const API_URL = process.env.REACT_APP_API_URL;
 
-  
     const fetchCapacitaciones = useCallback(async () => {
         setLoading(true);
         setError(null);
@@ -41,11 +39,11 @@ const Taller = ({ isNavbarExpanded }) => {
         } finally {
             setLoading(false);
         }
-    }, [API_URL]); 
+    }, [API_URL]);
 
     useEffect(() => {
         fetchCapacitaciones();
-    }, [fetchCapacitaciones]); 
+    }, [fetchCapacitaciones]);
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -104,11 +102,14 @@ const Taller = ({ isNavbarExpanded }) => {
                 <Button
                     icon="pi pi-plus"
                     label="Crear Taller"
-                    className="p-button-success p-button-rounded"
-                    onClick={() => setDisplayCreateDialog(true)}
                     style={{
+                        backgroundColor: '#697588',
+                        borderColor: '#697588',
+                        color: 'white',
                         whiteSpace: 'nowrap',
+                        borderRadius: '20px',
                     }}
+                    onClick={() => setDisplayCreateDialog(true)}
                 />
             </div>
         </div>
@@ -117,7 +118,7 @@ const Taller = ({ isNavbarExpanded }) => {
     const header = renderHeader();
 
     return (
-        <div className={`taller-container ${isNavbarExpanded ? 'expanded' : 'collapsed'}`}>
+        <div className={`datatable-container ${isNavbarExpanded ? 'expanded' : 'collapsed'}`}>
             {error && (
                 <div className="alert alert-danger mt-2">
                     <strong>Error:</strong> {error}
@@ -174,14 +175,23 @@ const Taller = ({ isNavbarExpanded }) => {
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
                                 <Button
                                     label="Detalle"
-                                    className="p-button-rounded p-button-info"
+                                    style={{
+                                        backgroundColor: '#697588',
+                                        borderColor: '#697588',
+                                        color: 'white',
+                                        borderRadius: '20px',
+                                    }}
                                     onClick={() => openDetalleModal(rowData.id)}
                                 />
                                 <Button
                                     label="Lista de Asistencia"
-                                    className="p-button-rounded p-button-secondary"
-                                    onClick={() =>  navigate(`/talleres/${rowData.id}/asistencia`)} 
-                                    
+                                    style={{
+                                        backgroundColor: '#0a65b5 ',
+                                        borderColor: '#0a65b5 ',
+                                        color: 'white',
+                                        borderRadius: '20px',
+                                    }}
+                                    onClick={() => navigate(`/talleres/${rowData.id}/asistencia`)}
                                 />
                             </div>
                         )}
@@ -193,15 +203,18 @@ const Taller = ({ isNavbarExpanded }) => {
             {/* Modal Crear Taller */}
             <Dialog
                 visible={displayCreateDialog}
-                style={{ width: '50vw' }}
+                style={{ width: '50vw',
+                    marginTop: '0',
+                    padding: '0', 
+                }}
                 modal
                 onHide={() => setDisplayCreateDialog(false)}
             >
-                <CrearTaller 
+                <CrearTaller
                     onSuccess={() => {
                         fetchCapacitaciones();
-                        setDisplayCreateDialog(false); 
-                    }} 
+                        setDisplayCreateDialog(false);
+                    }}
                 />
             </Dialog>
 

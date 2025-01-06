@@ -109,14 +109,27 @@ const EditarTaller = ({ detalle, onSave, onCancel }) => {
           <div className="col-md-12 d-flex justify-content-end">
             <button
               type="button"
-              className="btn btn-success me-2"
+              className="btn"
+              style={{
+                backgroundColor: "#0a65b5",
+                color: "white",
+                borderRadius: "5px",
+                border: "none",
+                marginRight: "10px",
+              }}
               onClick={handleSaveChanges}
             >
               Guardar
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn"
+              style={{
+                backgroundColor: "#dc3545",
+                color: "white",
+                borderRadius: "5px",
+                border: "none",
+              }}
               onClick={onCancel}
             >
               Cancelar

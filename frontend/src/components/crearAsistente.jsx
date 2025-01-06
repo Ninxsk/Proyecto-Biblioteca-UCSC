@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Collapse } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import ReactStars from 'react-rating-stars-component';
+import Swal from 'sweetalert2';
 
 const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
+    const API_URL = process.env.REACT_APP_API_URL;
+
     const [tipoAsistente, setTipoAsistente] = useState('');
     const [formData, setFormData] = useState({
         nombre: '',
@@ -12,8 +15,8 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
         numDocumento: '',
         pais: '',
         institucion: '',
-        comentario: '',
-        satisfaccion: 0,
+        comentario: '', // Campo opcional
+        satisfaccion: 0, // Campo obligatorio
     });
 
     const [carreras, setCarreras] = useState([]);
@@ -22,18 +25,21 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
         if (visible) {
             const fetchCarreras = async () => {
                 try {
-                    const API_URL = process.env.REACT_APP_API_URL;
                     const response = await fetch(`${API_URL}/carreras/`);
                     const data = await response.json();
                     setCarreras(data);
                 } catch (error) {
-                    console.error('Error al cargar las carreras:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al cargar carreras',
+                        text: 'No se pudieron cargar las carreras. Intente nuevamente.',
+                    });
                 }
             };
 
             fetchCarreras();
         }
-    }, [visible]);
+    }, [visible, API_URL]);
 
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,9 +49,43 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
         setFormData({ ...formData, satisfaccion: value });
     };
 
+    const validateForm = () => {
+        // Validar campos obligatorios según el tipo de asistente
+        if (tipoAsistente === 'interno') {
+            if (!formData.nombre || !formData.rut || !formData.carrera || !formData.correo || formData.satisfaccion === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Campos incompletos',
+                    text: 'Por favor complete todos los campos obligatorios para asistentes internos (incluida la satisfacción).',
+                });
+                return false;
+            }
+        } else if (tipoAsistente === 'externo') {
+            if (!formData.nombre || !formData.numDocumento || !formData.pais || !formData.institucion || !formData.correo || formData.satisfaccion === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Campos incompletos',
+                    text: 'Por favor complete todos los campos obligatorios para asistentes externos (incluida la satisfacción).',
+                });
+                return false;
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Tipo de asistente no seleccionado',
+                text: 'Seleccione el tipo de asistente antes de continuar.',
+            });
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async () => {
+        if (!validateForm()) {
+            return;
+        }
+
         try {
-            const API_URL = process.env.REACT_APP_API_URL;
             const url =
                 tipoAsistente === 'interno'
                     ? `${API_URL}/talleres/${tallerId}/crear-asistente-interno/`
@@ -56,11 +96,11 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                     ? {
                           asistente: {
                               nombre: formData.nombre,
-                              rut: formData.rut.replace(/[.-]/g, ''), 
+                              rut: formData.rut.replace(/[.-]/g, ''),
                           },
                           carrera: formData.carrera,
                           correo: formData.correo,
-                          comentario: formData.comentario,
+                          comentario: formData.comentario, // Se envía aunque sea opcional
                           satisfaccion: formData.satisfaccion,
                       }
                     : {
@@ -71,11 +111,9 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                           pais: formData.pais,
                           institucion: formData.institucion,
                           correo: formData.correo,
-                          comentario: formData.comentario,
+                          comentario: formData.comentario, // Se envía aunque sea opcional
                           satisfaccion: formData.satisfaccion,
                       };
-
-            console.log('Payload:', payload);
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -87,9 +125,30 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                console.error('Error del backend:', errorData);
+
+                // Manejar errores del backend con SweetAlert
+                if (errorData.error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error del servidor',
+                        text: errorData.error,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error inesperado',
+                        text: 'Ocurrió un problema al intentar crear el asistente.',
+                    });
+                }
+
                 throw new Error('Error al crear el asistente');
             }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Asistente creado',
+                text: 'El asistente ha sido creado exitosamente.',
+            });
 
             onSuccess();
             handleClose();
@@ -108,8 +167,8 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
             numDocumento: '',
             pais: '',
             institucion: '',
-            comentario: '',
-            satisfaccion: 0,
+            comentario: '', // Se limpia el comentario
+            satisfaccion: 0, // Se reinicia la satisfacción
         });
         onHide();
     };
@@ -132,9 +191,8 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                     </Form.Select>
                 </Form.Group>
 
-                {/* Formulario para Asistente Interno */}
-                <Collapse in={tipoAsistente === 'interno'}>
-                    <div>
+                {tipoAsistente === 'interno' && (
+                    <>
                         <Form.Group className="mb-3">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control
@@ -181,7 +239,7 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Comentario</Form.Label>
+                            <Form.Label>Comentario (opcional)</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -201,12 +259,11 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 activeColor="#ffd700"
                             />
                         </Form.Group>
-                    </div>
-                </Collapse>
+                    </>
+                )}
 
-                {/* Formulario para Asistente Externo */}
-                <Collapse in={tipoAsistente === 'externo'}>
-                    <div>
+                {tipoAsistente === 'externo' && (
+                    <>
                         <Form.Group className="mb-3">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control
@@ -258,7 +315,7 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Comentario</Form.Label>
+                            <Form.Label>Comentario (opcional)</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -278,14 +335,14 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 activeColor="#ffd700"
                             />
                         </Form.Group>
-                    </div>
-                </Collapse>
+                    </>
+                )}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Cancelar
                 </Button>
-                <Button variant="success" onClick={handleSubmit} disabled={!tipoAsistente}>
+                <Button variant="primary" onClick={handleSubmit}>
                     Crear
                 </Button>
             </Modal.Footer>

@@ -71,6 +71,12 @@ class CrearAsistenteInternoSerializer(serializers.ModelSerializer):
         asistente_data = validated_data.pop('asistente')
         taller = self.context.get('taller')
 
+        # Verificar duplicado entre asistentes internos y externos
+        if AsistenteExterno.objects.filter(num_documento=asistente_data['rut']).exists():
+            raise serializers.ValidationError(
+                {"error": "El RUT o numero de documento ya se encuentra asociado a este taller."}
+            )
+
         try:
             asistente = Asistente.objects.get(rut=asistente_data['rut'])
         except Asistente.DoesNotExist:
@@ -78,14 +84,14 @@ class CrearAsistenteInternoSerializer(serializers.ModelSerializer):
         else:
             if ListaAsistencia.objects.filter(asistente=asistente, taller=taller).exists():
                 raise serializers.ValidationError(
-                    {"error": "El asistente con rut {asistente.rut} ya está registrado en este taller."}
+                    {"error": f"El asistente con rut {asistente.rut} ya está registrado en este taller."}
                 )
 
         validated_data['asistente'] = asistente
         validated_data['taller'] = taller
 
         return ListaAsistencia.objects.create(**validated_data)
-
+    
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['asistente'] = {
@@ -96,6 +102,7 @@ class CrearAsistenteInternoSerializer(serializers.ModelSerializer):
         return representation
 
 class AsistenteExternoSerializer(serializers.ModelSerializer):
+    num_documento=serializers.IntegerField()
     class Meta:
         model = AsistenteExterno
         fields = ['nombre', 'num_documento']
@@ -132,5 +139,3 @@ class CrearAsistenciaExternaSerializer(serializers.ModelSerializer):
             
         }
         return externo
-    
-    

@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'corsheaders',
     'django_filters',
     'Taller',
     'Asistencia'
@@ -80,7 +79,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # Apunta a la carpeta de templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,13 +1,13 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status, viewsets, filters
+from rest_framework import status, viewsets, filters,serializers
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Taller , Jornada,SolicitudTalleres,Carrera
 from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer, JornadaCreateSerializer , JornadaListSerializer, SolicitudSerealizer,CarreraSerealizer
 from Asistencia.models import ListaAsistencia, ListaAsistenciaExterno
 from .models import Taller
 from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer
-from Asistencia.serializers import ListaAsistenciaSerializer,CrearAsistenteInternoSerializer,CrearAsistenciaExternaSerializer
+from Asistencia.serializers import ListaAsistenciaSerializer,CrearAsistenteInternoSerializer,CrearAsistenciaExternaSerializer,AsistenteExternoDetalleSerializer,AsistenteInternoDetalleSerializer
 from Asistencia.models import ListaAsistencia , ListaAsistenciaExterno,Asistente,AsistenteExterno
 
 
@@ -120,87 +120,113 @@ class TallerViewSet(viewsets.ModelViewSet):
 
         return Response({"error": "Tipo de asistente no válido. Debe ser 'interno' o 'externo'."}, status=status.HTTP_400_BAD_REQUEST)
 
-
     @action(detail=True, methods=['put'], url_path='editar-asistente')
     def editar_asistente(self, request, pk=None):
-        """
-        Editar la información de un asistente 
-        """
         tipo = request.data.get('tipo')  
-        identificador = request.data.get('identificador') 
-        nuevos_datos = request.data.get('datos') 
+        identificador = request.data.get('identificador')  
+        nuevos_datos = request.data.get('datos')  
 
         if not tipo or not identificador or not nuevos_datos:
             return Response(
-                {"error": "Se debe especificar el tipo ('interno' o 'externo'), el identificador (rut o num_documento) y los datos a actualizar."},
+                {"error": "Se debe especificar el tipo ('interno' o 'externo'), el identificador y los datos a actualizar."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         if tipo == 'interno':
             try:
-                
                 asistente = Asistente.objects.get(rut=identificador)
-
-                
-                asistente.nombre = nuevos_datos.get('nombre', asistente.nombre)
-                asistente.rut = nuevos_datos.get('rut', asistente.rut)
-                asistente.save()
-
-                
                 ListaAsistencia.objects.filter(asistente=asistente).update(
-                    correo=nuevos_datos.get('correo', None)
+                    correo=nuevos_datos.get('correo', None),
+                    comentario=nuevos_datos.get('comentario', None),
+                    satisfaccion=nuevos_datos.get('satisfaccion', None)
                 )
-
                 return Response({"message": "Asistente actualizado exitosamente."}, status=status.HTTP_200_OK)
-
             except Asistente.DoesNotExist:
-                return Response(
-                    {"error": "No se encontró un asistente con el rut especificado."},
-                    status=status.HTTP_404_NOT_FOUND
-                )
+                return Response({"error": "No se encontró un asistente con el rut especificado."}, status=status.HTTP_404_NOT_FOUND)
 
         elif tipo == 'externo':
             try:
-                
                 asistente_externo = AsistenteExterno.objects.get(num_documento=identificador)
-
-                asistente_externo.nombre = nuevos_datos.get('nombre', asistente_externo.nombre)
-                asistente_externo.num_documento = nuevos_datos.get('num_documento', asistente_externo.num_documento)
-                asistente_externo.save()
-
-                
                 ListaAsistenciaExterno.objects.filter(asistente_externo=asistente_externo).update(
                     correo=nuevos_datos.get('correo', None),
+                    comentario=nuevos_datos.get('comentario', None),
+                    satisfaccion=nuevos_datos.get('satisfaccion', None),
                     pais=nuevos_datos.get('pais', None),
                     institucion=nuevos_datos.get('institucion', None)
                 )
-
                 return Response({"message": "Asistente actualizado exitosamente."}, status=status.HTTP_200_OK)
-
             except AsistenteExterno.DoesNotExist:
-                return Response(
-                    {"error": "No se encontró un asistente con el número de documento especificado."},
-                    status=status.HTTP_404_NOT_FOUND
-                )
+                return Response({"error": "No se encontró un asistente con el número de documento especificado."}, status=status.HTTP_404_NOT_FOUND)
 
-        return Response({"error": "Tipo de asistente no válido. Debe ser 'interno' o 'externo'."}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Tipo de asistente no válido."}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=True, methods=['get'], url_path='detalle-asistente')
+    def detalle_asistente(self, request, pk=None):
+        """
+        Obtener detalle de un asistente (interno o externo) basado en su tipo y identificador.
+        """
+        tipo = request.query_params.get('tipo')  # interno o externo
+        identificador = request.query_params.get('identificador')  # rut o num_documento
 
+        if not tipo or not identificador:
+            return Response(
+                {"error": "Se debe especificar el tipo ('interno' o 'externo') y el identificador ('rut' o 'num_documento')."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            if tipo == 'interno':
+                asistente = Asistente.objects.get(rut=identificador)
+                asistencia = ListaAsistencia.objects.get(asistente=asistente, taller=self.get_object())
+                serializer = AsistenteInternoDetalleSerializer(asistencia)
+            elif tipo == 'externo':
+                asistente_externo = AsistenteExterno.objects.get(num_documento=identificador)
+                asistencia = ListaAsistenciaExterno.objects.get(asistente_externo=asistente_externo, taller=self.get_object())
+                serializer = AsistenteExternoDetalleSerializer(asistencia)
+            else:
+                return Response({"error": "Tipo de asistente no válido. Debe ser 'interno' o 'externo'."},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except (Asistente.DoesNotExist, AsistenteExterno.DoesNotExist):
+            return Response({"error": "No se encontró un asistente con el identificador especificado."},
+                            status=status.HTTP_404_NOT_FOUND)
+        except (ListaAsistencia.DoesNotExist, ListaAsistenciaExterno.DoesNotExist):
+            return Response({"error": "No se encontró una asistencia asociada a este asistente en el taller."},
+                            status=status.HTTP_404_NOT_FOUND)
+            
+    
 #Prueba para enrutar asistencia 
 class AsistenciaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset=ListaAsistencia.objects.all()
     serializer_class=ListaAsistenciaSerializer
 
-class JornadaViewSet( viewsets.ModelViewSet):
-    queryset= Jornada.objects.all()
-    
+class JornadaViewSet(viewsets.ModelViewSet):
+    queryset = Jornada.objects.all()
+
     def get_serializer_class(self):
         if self.action == 'list':
             return JornadaListSerializer
         return JornadaCreateSerializer
-    
 
-    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except serializers.ValidationError as e:
+            return Response(
+                {"detalle": e.detail}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            return Response(
+                {"detalle": "Ocurrió un error inesperado al crear la jornada."}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+            
 class SolicitudViewSet (viewsets.ReadOnlyModelViewSet):
     serializer_class = SolicitudSerealizer
     queryset = SolicitudTalleres.objects.all()
@@ -209,3 +235,4 @@ class SolicitudViewSet (viewsets.ReadOnlyModelViewSet):
 class CarreraViewSet (viewsets.ReadOnlyModelViewSet):
     serializer_class = CarreraSerealizer
     queryset = Carrera.objects.all()
+    

@@ -109,7 +109,7 @@ class JornadaCreateSerializer(serializers.ModelSerializer):
         if data ['inicio'] >= data ['termino']:
             raise serializers.ValidationError("La fecha de inicio debe ser anterior a la fecha de termino")
 
-
+        return data
 
 class JornadaListSerializer (serializers.ModelSerializer):       
     class Meta:

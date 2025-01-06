@@ -1,0 +1,94 @@
+/* Contenedor principal */
+.datatable-container {
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Diseño expandido y colapsado */
+.datatable-container.expanded {
+    margin-left: 0;
+}
+
+.datatable-container.collapsed {
+    margin-left: 0;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .datatable-container {
+        margin-left: 80px;
+    }
+}
+
+/* Encabezado flexible */
+.datatable-container .flex-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.datatable-container .flex-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Tabla responsiva */
+.datatable-container .card {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.datatable-container .datatable-title {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #333;
+    text-align: left;
+}
+
+/* Campo de búsqueda */
+.datatable-container .p-input-icon-left {
+    flex-grow: 1;
+    min-width: 250px;
+    max-width: calc(100% - 100px);
+}
+
+.datatable-container .p-input-icon-left input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Botones */
+.datatable-container .p-button {
+    white-space: nowrap;
+    margin: 0;
+}
+
+.datatable-container .p-button-rounded {
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .datatable-container .flex-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .datatable-container .p-button {
+        width: 100%;
+    }
+
+    .datatable-container .p-input-icon-left {
+        width: 100%;
+    }
+}

@@ -246,6 +246,7 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 onChange={handleInputChange}
                                 placeholder="Ingrese un comentario"
                             />
+                            
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Nivel de Satisfacción</Form.Label>

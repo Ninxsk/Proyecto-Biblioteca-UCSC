@@ -15,8 +15,8 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
         numDocumento: '',
         pais: '',
         institucion: '',
-        comentario: '', // Campo opcional
-        satisfaccion: 0, // Campo obligatorio
+        comentario: '', 
+        satisfaccion: 0, 
     });
 
     const [carreras, setCarreras] = useState([]);
@@ -50,7 +50,6 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
     };
 
     const validateForm = () => {
-        // Validar campos obligatorios según el tipo de asistente
         if (tipoAsistente === 'interno') {
             if (!formData.nombre || !formData.rut || !formData.carrera || !formData.correo || formData.satisfaccion === 0) {
                 Swal.fire({
@@ -100,7 +99,7 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                           },
                           carrera: formData.carrera,
                           correo: formData.correo,
-                          comentario: formData.comentario, // Se envía aunque sea opcional
+                          comentario: formData.comentario, 
                           satisfaccion: formData.satisfaccion,
                       }
                     : {
@@ -111,7 +110,7 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                           pais: formData.pais,
                           institucion: formData.institucion,
                           correo: formData.correo,
-                          comentario: formData.comentario, // Se envía aunque sea opcional
+                          comentario: formData.comentario, 
                           satisfaccion: formData.satisfaccion,
                       };
 
@@ -126,7 +125,6 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
             if (!response.ok) {
                 const errorData = await response.json();
 
-                // Manejar errores del backend con SweetAlert
                 if (errorData.error) {
                     Swal.fire({
                         icon: 'error',
@@ -167,8 +165,8 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
             numDocumento: '',
             pais: '',
             institucion: '',
-            comentario: '', // Se limpia el comentario
-            satisfaccion: 0, // Se reinicia la satisfacción
+            comentario: '', 
+            satisfaccion: 0, 
         });
         onHide();
     };

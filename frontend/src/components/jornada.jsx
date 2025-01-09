@@ -5,9 +5,9 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import DetalleJornada from './DetalleJornada';
+import DetalleJornada from './detalleJornada';
 import EditarJornada from './editarJornada';
-import CrearJornada from './CrearJornada';
+import CrearJornada from './crearJornada';
 import '../styles/datatable.css';
 
 

@@ -44,14 +44,14 @@ const CrearTaller = ({ onSuccess }) => {
 
     // Validaciones y envío
     const onSubmit = async (data) => {
-        // Validación: hora de inicio < hora de fin
+        
         if (horaInicio >= horaFin) {
             setError("inicio", { message: "La hora de inicio debe ser menor a la hora de término." });
             setError("fin", { message: "La hora de término debe ser mayor a la hora de inicio." });
             return;
         }
 
-        // Validar si ya existe un taller asociado a la solicitud
+        
         const solicitudSeleccionada = solicitudes.find(
             (solicitud) => solicitud.id === parseInt(data.solicitud)
         );
@@ -117,6 +117,17 @@ const CrearTaller = ({ onSuccess }) => {
                                 />
                                 {errors.relator && (
                                     <div className="invalid-feedback">{errors.relator.message}</div>
+                                )}
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="Observaciones" className="form-label">Observaciones</label>
+                                <input
+                                    id="relator"
+                                    className={`form-control ${errors.observaciones ? "is-invalid" : ""}`}
+                                    {...register("observaciones", { required: "es obligatoria" })}
+                                />
+                                {errors.observaciones && (
+                                    <div className="invalid-feedback">{errors.observaciones.message}</div>
                                 )}
                             </div>
                         </div>

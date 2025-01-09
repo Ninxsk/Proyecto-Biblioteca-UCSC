@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight, FaHome, FaClipboardList, FaUsers, FaCalendarAlt, FaCaretDown } from 'react-icons/fa';
 
-function Navbar({ toggleNavbar, isNavbarExpanded }) {
+function Sidebar({ toggleNavbar, isNavbarExpanded }) {
     const [isUSPExpanded, setIsUSPExpanded] = useState(false);
 
     const toggleUSP = () => {
@@ -216,4 +216,4 @@ function Navbar({ toggleNavbar, isNavbarExpanded }) {
     );
 }
 
-export default Navbar;
+export default Sidebar;

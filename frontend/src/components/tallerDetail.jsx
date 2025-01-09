@@ -90,6 +90,10 @@ const DetalleTaller = ({ detalle, onTallerUpdated }) => {
               <strong>Lugar:</strong>
               <input type="text" className="form-control" value={detalle.lugar || "N/A"} disabled />
             </div>
+            <div className="col-md-6 mb-3">
+              <strong>Observaciones:</strong>
+              <input type="text" className="form-control" value={detalle.observaciones || "N/A"} disabled />
+            </div>
           </div>
 
           {isEditing && (

@@ -5,8 +5,8 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import CrearAsistente from './crearAsistente';
-import DetalleAsistente from './DetalleAsistente';
-import EliminarAsistente from './EliminarAsistente';
+import DetalleAsistente from './detalleAsistente';
+import EliminarAsistente from './eliminarAsistente';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import '../styles/datatable.css';
@@ -121,9 +121,9 @@ const ListaAsistencia = () => {
         className="flex-header"
         style={{
             display: 'flex',
-            justifyContent: 'space-between', // Alinea el título a la izquierda y el botón a la derecha
-            alignItems: 'center', // Centra los elementos verticalmente
-            width: '100%', // Asegura que ocupe todo el ancho disponible
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            width: '100%', 
         }}
         >
             <h2 className="datatable-title">Lista de Asistencia</h2>
@@ -170,6 +170,15 @@ const ListaAsistencia = () => {
                     emptyMessage="No se encontraron asistentes."
                     className="p-datatable-sm"
                 >
+                    <Column
+                        field="preisncrito"
+                        body={(rowData)=> rowData.preinscrito }
+                        header="Preinscrito"
+                        sortable
+                        filter
+                        ///filterElement={renderFilterInput('nombre', 'Buscar por nombre')}
+                    />
+
                     <Column
                         field="nombre"
                         header="Nombre"

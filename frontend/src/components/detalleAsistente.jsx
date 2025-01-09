@@ -109,7 +109,7 @@ const DetalleAsistente = ({ visible, asistente, onHide, onSave }) => {
         });
     };
 
-    // Cerrar el modal y reiniciar el estado
+    
     const handleClose = () => {
         setEditMode(false); 
         setFormData({}); 
@@ -180,7 +180,7 @@ const DetalleAsistente = ({ visible, asistente, onHide, onSave }) => {
                                                 className="form-control"
                                                 name="num_documento"
                                                 value={formData.num_documento || ''}
-                                                disabled // Deshabilitado para evitar edición
+                                                disabled 
                                             />
                                         </div>
                                         <div className="mb-3">
@@ -242,14 +242,17 @@ const DetalleAsistente = ({ visible, asistente, onHide, onSave }) => {
                                     <>
                                         <p><strong>RUT:</strong> {asistente.rut}</p>
                                         <p><strong>Carrera:</strong> {asistente.carrera}</p>
+                                        <p><strong>Categoria:</strong> {asistente.categoria}</p>
                                     </>
                                 ) : (
                                     <>
                                         <p><strong>Número de Documento:</strong> {asistente.num_documento}</p>
                                         <p><strong>País:</strong> {asistente.pais}</p>
                                         <p><strong>Institución:</strong> {asistente.institucion}</p>
+                                        
                                     </>
                                 )}
+                                <p><strong>Tipo:</strong> {asistente.tipo}</p>
                                 <p><strong>Correo:</strong> {asistente.correo}</p>
                                 <p><strong>Comentario:</strong> {asistente.comentario}</p>
                                 <p><strong>Satisfacción:</strong></p>

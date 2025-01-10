@@ -202,7 +202,19 @@ const ListaJornadas = ({isNavbarExpanded}) => {
                                         setSelectedJornada(rowData);
                                         setShowEditDialog(true);
                                     }}
+                                    
                                 />
+                                <Button
+                                    label= "Talleres"
+                                    className='p-button-rounded'
+                                    style={{
+                                        backgroundColor: '#0a65b5',
+                                        borderColor: '#0a65b5',
+                                        color: 'white',
+                                    }}
+                                    //onClick={() => navigate(/jornada/${rowData.id_jornada}/talleres)}
+                                />
+                                
                             </div>
                         )}
                     />

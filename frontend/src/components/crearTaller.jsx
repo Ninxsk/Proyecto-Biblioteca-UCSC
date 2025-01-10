@@ -119,17 +119,6 @@ const CrearTaller = ({ onSuccess }) => {
                                     <div className="invalid-feedback">{errors.relator.message}</div>
                                 )}
                             </div>
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="Observaciones" className="form-label">Observaciones</label>
-                                <input
-                                    id="relator"
-                                    className={`form-control ${errors.observaciones ? "is-invalid" : ""}`}
-                                    {...register("observaciones", { required: "es obligatoria" })}
-                                />
-                                {errors.observaciones && (
-                                    <div className="invalid-feedback">{errors.observaciones.message}</div>
-                                )}
-                            </div>
                         </div>
 
                         {/* Fecha y hora */}
@@ -242,6 +231,18 @@ const CrearTaller = ({ onSuccess }) => {
                                 </select>
                             </div>
                         </div>
+                        <div className="col-md-6 mb-3">
+                                <label htmlFor="Observaciones" className="form-label">Observaciones</label>
+                                <input
+                                    as="textarea"
+                                    id="observciones"
+                                    className={`form-control ${errors.observaciones ? "is-invalid" : ""}`}
+                                    {...register("observaciones", { required: "es obligatoria" })}
+                                />
+                                {errors.observaciones && (
+                                    <div className="invalid-feedback">{errors.observaciones.message}</div>
+                                )}
+                            </div>
 
                         {/* Botón de envío */}
                         <button type="submit" className="btn btn-primary w-100">

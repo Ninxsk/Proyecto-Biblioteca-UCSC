@@ -2,14 +2,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets, filters,serializers
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Taller , Jornada,SolicitudTalleres,Carrera
-from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer, JornadaCreateSerializer , JornadaListSerializer, SolicitudSerealizer,CarreraSerealizer
-from Asistencia.models import ListaAsistencia, ListaAsistenciaExterno
-from .models import Taller
-from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer
-from Asistencia.serializers import ListaAsistenciaSerializer,CrearAsistenteInternoSerializer,CrearAsistenciaExternaSerializer,AsistenteExternoDetalleSerializer,AsistenteInternoDetalleSerializer
-from Asistencia.models import ListaAsistencia , ListaAsistenciaExterno,Asistente,AsistenteExterno
-
+from .models import Taller , Jornada,SolicitudTalleres,Carrera,ListaAsistencia , ListaAsistenciaExterno,Asistente,AsistenteExterno
+from .serializers import TallerCreateSerializer,TallerListSerializer,TallerDetailSerializer,TallerUpdateSerializer, JornadaCreateSerializer , JornadaListSerializer, SolicitudSerealizer,CarreraSerealizer,ListaAsistenciaSerializer,CrearAsistenteInternoSerializer,CrearAsistenciaExternaSerializer,AsistenteExternoDetalleSerializer,AsistenteInternoDetalleSerializer
 
 
 #Vista de talleres, listado de asistencia y creacion de asistentes (internos y externos)
@@ -165,8 +159,8 @@ class TallerViewSet(viewsets.ModelViewSet):
         """
         Obtener detalle de un asistente (interno o externo) basado en su tipo y identificador.
         """
-        tipo = request.query_params.get('tipo')  # interno o externo
-        identificador = request.query_params.get('identificador')  # rut o num_documento
+        tipo = request.query_params.get('tipo')  
+        identificador = request.query_params.get('identificador') 
 
         if not tipo or not identificador:
             return Response(
@@ -198,9 +192,9 @@ class TallerViewSet(viewsets.ModelViewSet):
             
     
 #Prueba para enrutar asistencia 
-class AsistenciaViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset=ListaAsistencia.objects.all()
-    serializer_class=ListaAsistenciaSerializer
+#class AsistenciaViewSet(viewsets.ReadOnlyModelViewSet):
+#    queryset=ListaAsistencia.objects.all()
+#    serializer_class=ListaAsistenciaSerializer
 
 class JornadaViewSet(viewsets.ModelViewSet):
     queryset = Jornada.objects.all()
@@ -224,6 +218,23 @@ class JornadaViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response(
                 {"detalle": "Ocurrió un error inesperado al crear la jornada."}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    @action(detail=True, methods=['get'])
+    def talleres(self, request, pk=None):
+        try:
+            jornada = self.get_object()
+            talleres = jornada.taller_set.all()  
+            serializer = TallerListSerializer(talleres, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Jornada.DoesNotExist:
+            return Response(
+                {"detalle": "Jornada no encontrada."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {"detalle": "Ocurrió un error inesperado al listar los talleres."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
             

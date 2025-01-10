@@ -16,7 +16,9 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
         pais: '',
         institucion: '',
         comentario: '', 
-        satisfaccion: 0, 
+        satisfaccion: 0,
+        tipo: '',
+        preinscrito: '',
     });
 
     const [carreras, setCarreras] = useState([]);
@@ -42,7 +44,11 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
     }, [visible, API_URL]);
 
     const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value, type, checked } = e.target;
+        setFormData({ 
+            ...formData, 
+            [name]: type === 'checkbox' ? checked : value 
+        });
     };
 
     const handleRatingChange = (value) => {
@@ -99,21 +105,28 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                           },
                           carrera: formData.carrera,
                           correo: formData.correo,
+                          tipo:formData.tipo,
                           comentario: formData.comentario, 
                           satisfaccion: formData.satisfaccion,
+                          preinscrito: formData.preinscrito, 
                       }
                     : {
                           asistente_externo: {
                               nombre: formData.nombre,
                               num_documento: formData.numDocumento,
                           },
+                          tipo: formData.tipo,
                           pais: formData.pais,
                           institucion: formData.institucion,
                           correo: formData.correo,
+                          
                           comentario: formData.comentario, 
                           satisfaccion: formData.satisfaccion,
+                          preinscrito: formData.preinscrito, 
                       };
-
+            console.log('URL:', url);
+            console.log('Payload enviado:', JSON.stringify(payload, null, 2));
+          
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -167,6 +180,8 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
             institucion: '',
             comentario: '', 
             satisfaccion: 0, 
+            tipo:',',
+            preinscrito:'false',
         });
         onHide();
     };
@@ -212,20 +227,43 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Carrera</Form.Label>
+                            <Form.Label>Tipo</Form.Label>
                             <Form.Select
-                                name="carrera"
-                                value={formData.carrera}
-                                onChange={handleInputChange}
+                                name="tipo"
+                                value={formData.tipo}
+                                onChange={(e) => {
+                                    const newValue = e.target.value;
+                                    setFormData((prevFormData) => ({
+                                        ...prevFormData,
+                                        tipo: newValue,
+                                        carrera: newValue !== 'estudiante' ? '' : prevFormData.carrera,   //revisar linea
+                                    }));
+                                }}
                             >
-                                <option value="">Seleccione una carrera</option>
-                                {carreras.map((carrera) => (
-                                    <option key={carrera.ua} value={carrera.ua}>
-                                        {carrera.nombre}
-                                    </option>
-                                ))}
+                                <option value="">Seleccione el tipo</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="academico">Académico</option>
+                                <option value="administrativo">Administrativo</option>
                             </Form.Select>
+
                         </Form.Group>
+                        {formData.tipo === 'estudiante' && (
+                            <Form.Group className="mb-3">
+                                <Form.Label>Carrera</Form.Label>
+                                <Form.Select
+                                    name="carrera"
+                                    value={formData.carrera}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="">Seleccione una carrera</option>
+                                    {carreras.map((carrera) => (
+                                        <option key={carrera.ua} value={carrera.ua}>
+                                            {carrera.nombre}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        )}
                         <Form.Group className="mb-3">
                             <Form.Label>Correo</Form.Label>
                             <Form.Control
@@ -246,7 +284,6 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 onChange={handleInputChange}
                                 placeholder="Ingrese un comentario"
                             />
-                            
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Nivel de Satisfacción</Form.Label>
@@ -258,6 +295,16 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 activeColor="#ffd700"
                             />
                         </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Check
+                                type="checkbox"
+                                label="Preinscrito"
+                                name="preinscrito"
+                                checked={formData.preinscrito}
+                                onChange={handleInputChange}
+                            />
+                        </Form.Group>
+                    
                     </>
                 )}
 
@@ -281,7 +328,21 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 value={formData.numDocumento}
                                 onChange={handleInputChange}
                                 placeholder="Ingrese el número de documento"
+                        
                             />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                        <Form.Label>Tipo</Form.Label>
+                        <Form.Select
+                            name="tipo"
+                            value={formData.tipo}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Seleccione el tipo</option>
+                            <option value="academico">Académico</option>
+                            <option value="estudiante">Estudiante</option>
+                            <option value="administrativo">Administrativo</option>
+                        </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>País</Form.Label>
@@ -332,6 +393,15 @@ const CrearAsistente = ({ visible, onHide, onSuccess, tallerId }) => {
                                 onChange={handleRatingChange}
                                 size={24}
                                 activeColor="#ffd700"
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Check
+                                type="checkbox"
+                                label="Preinscrito"
+                                name="preinscrito"
+                                checked={formData.preinscrito}
+                                onChange={handleInputChange}
                             />
                         </Form.Group>
                     </>

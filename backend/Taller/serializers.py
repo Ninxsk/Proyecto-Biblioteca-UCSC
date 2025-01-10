@@ -173,8 +173,6 @@ class AsistenteSerializer(serializers.ModelSerializer):
 class CrearAsistenteInternoSerializer(serializers.ModelSerializer):
     asistente = AsistenteSerializer()
 
- 
-
     class Meta:
         model = ListaAsistencia
         fields = ['asistente','tipo', 'correo', 'carrera', 'comentario', 'satisfaccion','preinscrito']
@@ -190,7 +188,6 @@ class CrearAsistenteInternoSerializer(serializers.ModelSerializer):
             
 
         return data
-
         
     def create(self, validated_data):
         asistente_data = validated_data.pop('asistente')
